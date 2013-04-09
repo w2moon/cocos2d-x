@@ -7,6 +7,3 @@
 [submodule "samples/Javascript/Shared"]
 	path = samples/Javascript/Shared
 	url = https://github.com/minggo/cocos2d-js-tests.git
-[submodule "extensions/pomeloclient/libpomelo"]
-	path = extensions/pomeloclient/libpomelo
-	url = https://github.com/NetEase/libpomelo.git
