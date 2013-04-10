@@ -41,6 +41,8 @@
 #include "network/HttpResponse.h"
 #include "network/HttpClient.h"
 
+#include "ImagePicker/include/CCImagePicker.h"
+
 // Physics integration
 #if CC_ENABLE_CHIPMUNK_INTEGRATION
 #include "physics_nodes/CCPhysicsDebugNode.h"

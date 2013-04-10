@@ -4,8 +4,8 @@
 :: You should modify PYTHON_ROOT and NDK_ROOT to work under your environment.
 :: Android ndk version must be at least ndk-r8d.
 
-set PYTHON_ROOT=C:/Python27
-set NDK_ROOT=C:/android-ndk-r8d
+set PYTHON_ROOT=E:/Python27
+set NDK_ROOT=E:/android-ndk-r8e
 
 set PATH=%PATH%;%cd%/win32;%PYTHON_ROOT%
 set COCOS2DX_ROOT=%cd%/../..
