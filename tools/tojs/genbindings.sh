@@ -26,7 +26,7 @@ fi
 
 if [ -z "${PYTHON_BIN+aaa}" ]; then
 # ... if PYTHON_BIN is not set, use "/usr/bin/python2.7"
-    PYTHON_BIN="/usr/bin/python2.7"
+    PYTHON_BIN="/usr/bin/python"
 fi
 
 # find current dir
@@ -74,7 +74,7 @@ echo
 echo "generating userconf.ini..."
 echo ---
 echo -e "$_CONTENTS"
-echo -e "$_CONTENTS" > "$_CONF_INI_FILE"
+echo  "$_CONTENTS" > "$_CONF_INI_FILE"
 echo ---
 
 # Generate bindings for cocos2dx
