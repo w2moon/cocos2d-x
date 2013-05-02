@@ -505,7 +505,9 @@ static JSBool js_cocos2dx_CCHttpResponse_getResponseData(JSContext *cx, uint32_t
 		std::vector< char >* data = cobj->getResponseData();
 		if(!data->empty())
 		{
-			const char* ret =static_cast<char*>(&((*data)[0]));
+			char* ret = new char[data->size()+1];
+			ret[data->size()] = 0;
+			memcpy(ret,static_cast<char*>(&((*data)[0])),data->size());
 			unsigned short* st = cc_utf8_to_utf16(ret);
 			JSString* str = JS_NewUCStringCopyZ(cx,reinterpret_cast<const jschar*>(st));
 			jsret =	STRING_TO_JSVAL(str);

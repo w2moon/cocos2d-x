@@ -27,6 +27,8 @@ THE SOFTWARE.
 #include "platform/CCPlatformMacros.h"
 #include <string>
 
+#include "cocoa/CCObject.h"
+
 NS_CC_BEGIN
 
 /**
@@ -42,7 +44,7 @@ NS_CC_BEGIN
  * It supports the following base types:
  * bool, int, float, double, string
  */
-class CC_DLL CCUserDefault
+class CC_DLL CCUserDefault : public CCObject
 {
 public:
     ~CCUserDefault();

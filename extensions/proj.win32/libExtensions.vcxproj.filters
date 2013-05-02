@@ -356,4 +356,7 @@
       <Filter>ImagePicker</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\scripting\javascript\bindings\proj.win32\libJSBinding.vcxproj" />
+  </ItemGroup>
 </Project>
