@@ -10,10 +10,12 @@
 
 static CCImagePickerImplIOS* s_picker = nil;
 
+USING_NS_CC_EXT;
+
 @implementation CCImagePickerImplIOS
 
 @synthesize imagePicker;
-
+@synthesize pTarget,pSelector;
 
 +(BOOL)canUseCamera
 {
@@ -25,7 +27,7 @@ static CCImagePickerImplIOS* s_picker = nil;
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary];
 }
 
-+(id)create:(UIImagePickerControllerSourceType)sourceType canEdit:(BOOL)edit
++(id)create:(UIImagePickerControllerSourceType)sourceType canEdit:(BOOL)edit with:(CCObject*)obj func:(SEL_CallFuncO)cb
 {
     CCImagePickerImplIOS* pIpc = [[CCImagePickerImplIOS alloc] init];
 
@@ -34,6 +36,9 @@ static CCImagePickerImplIOS* s_picker = nil;
         [s_picker closeView];
     }
     s_picker = pIpc;
+    
+    pIpc.pTarget = obj;
+    pIpc.pSelector = cb;
 
     pIpc.imagePicker = [[UIImagePickerController alloc] init];
     pIpc.imagePicker.delegate = pIpc;
@@ -72,15 +77,15 @@ static CCImagePickerImplIOS* s_picker = nil;
 }
 
 
-+(id)useCamera:(BOOL)edit
++(id)useCamera:(BOOL)edit with:(CCObject*)obj func:(SEL_CallFuncO)cb
 {
-    return  [CCImagePickerImplIOS create:UIImagePickerControllerSourceTypeCamera canEdit:edit];
+    return  [CCImagePickerImplIOS create:UIImagePickerControllerSourceTypeCamera canEdit:edit with:obj func:cb];
 
 }
 
-+(id)usePhotoLibrary:(BOOL)edit
++(id)usePhotoLibrary:(BOOL)edit with:(CCObject*)obj func:(SEL_CallFuncO)cb
 {
-    return [CCImagePickerImplIOS create:UIImagePickerControllerSourceTypePhotoLibrary canEdit:edit];
+    return [CCImagePickerImplIOS create:UIImagePickerControllerSourceTypePhotoLibrary canEdit:edit with:obj func:cb];
 }
 
 
@@ -117,6 +122,17 @@ static CCImagePickerImplIOS* s_picker = nil;
   //  photoView.image = image;
 
     //下面就应该变为nsdata然后传给服务器了...........以下省略N个字
+    
+    CCImagePickerData* pickdata = new CCImagePickerData();
+    pickdata->setWidth(image.size.width);
+    pickdata->setHeight(image.size.height);
+    void* bytes = new unsigned char[imageData.length];
+    [imageData getBytes:bytes length:imageData.length];
+    pickdata->setData(static_cast<unsigned char*>(bytes));
+    
+    (pTarget->*pSelector)(pickdata);
+    
+    pickdata->release();
 }
 
 
@@ -152,7 +168,7 @@ static CCImagePickerImplIOS* s_picker = nil;
 
 @end
 
-#include "CCImagePicker.h"
+
 
 namespace cocos2d { namespace extension {
 
@@ -166,13 +182,13 @@ bool CCImagePicker::canUsePhotoLibrary()
     return [CCImagePickerImplIOS canUsePhotoLibrary];
 }
 
-void CCImagePicker::useCamera(void* obj,picker_callback func,bool edit)
+void CCImagePicker::useCamera(CCObject* pTarget, SEL_CallFuncO pSelector,bool edit)
 {
-    [CCImagePickerImplIOS useCamera:edit];
+    [CCImagePickerImplIOS useCamera:edit with:pTarget func:pSelector];
 }
 
-void CCImagePicker::usePhotoLibrary(void* obj,picker_callback func,bool edit)
+void CCImagePicker::usePhotoLibrary(CCObject* pTarget, SEL_CallFuncO pSelector,bool edit)
 {
-    [CCImagePickerImplIOS usePhotoLibrary:edit];
+    [CCImagePickerImplIOS usePhotoLibrary:edit with:pTarget func:pSelector];
 }
 }}
