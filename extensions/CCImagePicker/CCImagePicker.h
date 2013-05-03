@@ -34,13 +34,23 @@ private:
     unsigned char* data;
 };
 
-class CCImagePicker
+class CCImagePicker  : public CCObject
 {
 public:
-    static bool canUseCamera();
-    static bool canUsePhotoLibrary();
-    static void useCamera(CCObject* pTarget, SEL_CallFuncO pSelector,bool edit = false);
-    static void usePhotoLibrary(CCObject* pTarget, SEL_CallFuncO pSelector,bool edit = false);
+	  /** Return the shared instance **/
+    static CCImagePicker *getInstance();
+    
+    /** Relase the shared instance **/
+    static void destroyInstance();
+
+    bool canUseCamera();
+    bool canUsePhotoLibrary();
+    void useCamera(CCObject* pTarget, SEL_CallFuncO pSelector,bool edit = false);
+    void usePhotoLibrary(CCObject* pTarget, SEL_CallFuncO pSelector,bool edit = false);
+
+private:
+    CCImagePicker();
+    virtual ~CCImagePicker();
 };
 NS_CC_EXT_END
 

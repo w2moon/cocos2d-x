@@ -165,6 +165,7 @@
     <ClCompile Include="..\CCBReader\CCScale9SpriteLoader.cpp" />
     <ClCompile Include="..\CCBReader\CCScrollViewLoader.cpp" />
     <ClCompile Include="..\CCBReader\CCSpriteLoader.cpp" />
+    <ClCompile Include="..\CCImagePicker\CCImagePickerImplWIN32.cpp" />
     <ClCompile Include="..\GUI\CCControlExtension\CCControl.cpp" />
     <ClCompile Include="..\GUI\CCControlExtension\CCControlButton.cpp" />
     <ClCompile Include="..\GUI\CCControlExtension\CCControlColourPicker.cpp" />
@@ -183,7 +184,6 @@
     <ClCompile Include="..\GUI\CCScrollView\CCSorting.cpp" />
     <ClCompile Include="..\GUI\CCScrollView\CCTableView.cpp" />
     <ClCompile Include="..\GUI\CCScrollView\CCTableViewCell.cpp" />
-    <ClCompile Include="..\ImagePicker\src\CCImagePickerImplWIN32.cpp" />
     <ClCompile Include="..\LocalStorage\LocalStorage.cpp" />
     <ClCompile Include="..\network\HttpClient.cpp" />
     <ClCompile Include="..\physics_nodes\CCPhysicsDebugNode.cpp" />
@@ -220,6 +220,7 @@
     <ClInclude Include="..\CCBReader\CCScale9SpriteLoader.h" />
     <ClInclude Include="..\CCBReader\CCScrollViewLoader.h" />
     <ClInclude Include="..\CCBReader\CCSpriteLoader.h" />
+    <ClInclude Include="..\CCImagePicker\CCImagePicker.h" />
     <ClInclude Include="..\GUI\CCControlExtension\CCControl.h" />
     <ClInclude Include="..\GUI\CCControlExtension\CCControlButton.h" />
     <ClInclude Include="..\GUI\CCControlExtension\CCControlColourPicker.h" />
@@ -242,7 +243,6 @@
     <ClInclude Include="..\GUI\CCScrollView\CCSorting.h" />
     <ClInclude Include="..\GUI\CCScrollView\CCTableView.h" />
     <ClInclude Include="..\GUI\CCScrollView\CCTableViewCell.h" />
-    <ClInclude Include="..\ImagePicker\include\CCImagePicker.h" />
     <ClInclude Include="..\LocalStorage\LocalStorage.h" />
     <ClInclude Include="..\network\HttpClient.h" />
     <ClInclude Include="..\network\HttpRequest.h" />

@@ -1,4 +1,4 @@
-//
+﻿//
 //  ImagePicker.m
 //  CCImagePicker
 //
@@ -122,17 +122,16 @@ USING_NS_CC_EXT;
   //  photoView.image = image;
 
     //下面就应该变为nsdata然后传给服务器了...........以下省略N个字
+
+    CCImage* pickdata= new CCImage();
+    pickdata->autorelease();
     
-    CCImagePickerData* pickdata = new CCImagePickerData();
-    pickdata->setWidth(image.size.width);
-    pickdata->setHeight(image.size.height);
     void* bytes = new unsigned char[imageData.length];
     [imageData getBytes:bytes length:imageData.length];
-    pickdata->setData(static_cast<unsigned char*>(bytes));
+    pickdata->initWithImageData(bytes,CCImage::kFmtRawData,image.size.width,image.size.height,4);
     
     (pTarget->*pSelector)(pickdata);
     
-    pickdata->release();
 }
 
 
@@ -171,6 +170,32 @@ USING_NS_CC_EXT;
 
 
 namespace cocos2d { namespace extension {
+
+
+static CCImagePicker *s_pImagePicker = NULL;
+
+CCImagePicker* CCImagePicker::getInstance()
+{
+    if (s_pImagePicker == NULL) {
+        s_pImagePicker = new CCImagePicker();
+    }
+    
+    return s_pImagePicker;
+}
+
+void CCImagePicker::destroyInstance()
+{
+	s_pImagePicker->release();
+}
+
+CCImagePicker::CCImagePicker()
+{
+}
+
+CCImagePicker::~CCImagePicker()
+{
+  s_pImagePicker = NULL;
+}
 
 bool CCImagePicker::canUseCamera()
 {

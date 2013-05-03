@@ -494,6 +494,102 @@ static JSBool js_cocos2dx_CCHttpRequest_setResponseCallback(JSContext *cx, uint3
     return JS_FALSE;
 }
 
+class JSCCImagePickerWrapper: public JSCallbackWrapper {
+public:
+    JSCCImagePickerWrapper() {}
+    virtual ~JSCCImagePickerWrapper() {}
+    
+    void responseCallbackO(CCImage *data) const {
+        
+        JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
+        jsval retval = JSVAL_NULL;
+        
+        if(!JSVAL_IS_VOID(jsCallback)  && !JSVAL_IS_VOID(jsThisObj)) {
+			jsval jsargs;
+			js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::CCImage>(cx, data);
+			jsargs = OBJECT_TO_JSVAL(proxy->obj);
+			
+            JS_CallFunctionValue(cx, JSVAL_TO_OBJECT(jsThisObj), jsCallback, 1, &jsargs, &retval);
+
+			js_proxy_t* nproxy;
+			js_proxy_t* jsproxy;
+			JS_GET_PROXY(nproxy, data);
+			JS_GET_NATIVE_PROXY(jsproxy, nproxy->obj);
+			JS_RemoveObjectRoot(cx, &jsproxy->obj);
+			JS_REMOVE_PROXY(nproxy,jsproxy);
+
+        }
+    }
+    
+};
+
+static JSBool js_cocos2dx_CCImagePicker_useCamera(JSContext *cx, uint32_t argc, jsval *vp)
+{
+     if (argc >= 1) {
+		jsval *argv = JS_ARGV(cx, vp);
+        
+        JSObject *obj = JS_THIS_OBJECT(cx, vp);
+		js_proxy_t *proxy;
+		JS_GET_NATIVE_PROXY(proxy, obj);
+		cocos2d::extension::CCImagePicker *picker = (cocos2d::extension::CCImagePicker *)(proxy ? proxy->ptr : NULL);
+        
+        JSCCImagePickerWrapper *tmpCobj = new JSCCImagePickerWrapper();
+        tmpCobj->autorelease();
+        
+        tmpCobj->setJSCallbackThis(argv[0]);
+        if(argc >= 2) {
+            tmpCobj->setJSCallbackFunc(argv[1]);
+        }
+
+		JSBool canedit = JS_FALSE;
+		if( argc >= 3 ) {
+            JS_ValueToBoolean(cx, argv[3], &canedit );
+        }
+
+        
+		picker->useCamera(tmpCobj,callfuncO_selector(JSCCImagePickerWrapper::responseCallbackO),canedit);
+        
+        JS_SetReservedSlot(proxy->obj, 0, argv[0]);
+        JS_SetReservedSlot(proxy->obj, 1, argv[1]);
+        return JS_TRUE;
+    }
+    return JS_FALSE;
+}
+
+static JSBool js_cocos2dx_CCImagePicker_usePhotoLibrary(JSContext *cx, uint32_t argc, jsval *vp)
+{
+     if (argc >= 1) {
+		jsval *argv = JS_ARGV(cx, vp);
+        
+        JSObject *obj = JS_THIS_OBJECT(cx, vp);
+		js_proxy_t *proxy;
+		JS_GET_NATIVE_PROXY(proxy, obj);
+		cocos2d::extension::CCImagePicker *picker = (cocos2d::extension::CCImagePicker *)(proxy ? proxy->ptr : NULL);
+        
+        JSCCImagePickerWrapper *tmpCobj = new JSCCImagePickerWrapper();
+        tmpCobj->autorelease();
+        
+        tmpCobj->setJSCallbackThis(argv[0]);
+        if(argc >= 2) {
+            tmpCobj->setJSCallbackFunc(argv[1]);
+        }
+
+		JSBool canedit = JS_FALSE;
+		if( argc >= 3 ) {
+            JS_ValueToBoolean(cx, argv[3], &canedit );
+        }
+
+        
+		picker->usePhotoLibrary(tmpCobj,callfuncO_selector(JSCCImagePickerWrapper::responseCallbackO),canedit);
+        
+        JS_SetReservedSlot(proxy->obj, 0, argv[0]);
+        JS_SetReservedSlot(proxy->obj, 1, argv[1]);
+        return JS_TRUE;
+    }
+    return JS_FALSE;
+}
+
+
 static JSBool js_cocos2dx_CCHttpResponse_getResponseData(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
@@ -528,6 +624,7 @@ extern JSObject* jsb_CCTableView_prototype;
 extern JSObject* jsb_CCEditBox_prototype;
 extern JSObject* jsb_CCHttpRequest_prototype;
 extern JSObject* jsb_CCHttpResponse_prototype;
+extern JSObject* jsb_CCImagePicker_prototype;
 
 void register_all_cocos2dx_extension_manual(JSContext* cx, JSObject* global)
 {
@@ -541,5 +638,10 @@ void register_all_cocos2dx_extension_manual(JSContext* cx, JSObject* global)
 
 	JS_DefineFunction(cx, jsb_CCHttpRequest_prototype, "setResponseCallback", js_cocos2dx_CCHttpRequest_setResponseCallback, 2, JSPROP_READONLY | JSPROP_PERMANENT);
     JS_DefineFunction(cx, jsb_CCHttpResponse_prototype, "getResponseData", js_cocos2dx_CCHttpResponse_getResponseData, 0, JSPROP_READONLY | JSPROP_PERMANENT);
+
+	JS_DefineFunction(cx, jsb_CCImagePicker_prototype, "useCamera", js_cocos2dx_CCImagePicker_useCamera, 3, JSPROP_READONLY | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, jsb_CCImagePicker_prototype, "usePhotoLibrary", js_cocos2dx_CCImagePicker_usePhotoLibrary, 3, JSPROP_READONLY | JSPROP_PERMANENT);
+
+	
    
 }
