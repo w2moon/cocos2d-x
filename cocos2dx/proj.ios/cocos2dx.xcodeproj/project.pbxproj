@@ -1690,19 +1690,23 @@
 					"\"$(SRCROOT)/../kazmath/include\"",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
+				INSTALL_PATH = "/usr/local//Users/w2moon/Documents/projects/w2moon_fork/cocos2d-x/mycocos2d/lib";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../platform/third_party/ios/libraries\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		1551A34E158F2AB200E66CFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DSTROOT = /tmp/cocos2dx.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "cocos2dx-Prefix.pch";
@@ -1716,13 +1720,16 @@
 					"\"$(SRCROOT)/../kazmath/include\"",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
+				INSTALL_PATH = "/usr/local//Users/w2moon/Documents/projects/w2moon_fork/cocos2d-x/mycocos2d/lib";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../platform/third_party/ios/libraries\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

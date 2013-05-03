@@ -7,6 +7,3 @@
 [submodule "samples/Javascript/Shared"]
 	path = samples/Javascript/Shared
 	url = https://github.com/minggo/cocos2d-js-tests.git
-[submodule "extensions/ImagePicker"]
-	path = extensions/ImagePicker
-	url = https://github.com/w2moon/CCImagePicker.git
