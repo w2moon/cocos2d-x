@@ -88,6 +88,14 @@ CCTexture2D::~CCTexture2D()
     }
 }
 
+CCTexture2D* CCTexture2D::create()
+{
+    CCTexture2D *pTexture = new CCTexture2D();
+    pTexture->autorelease();
+    return pTexture;
+   
+}
+
 CCTexture2DPixelFormat CCTexture2D::getPixelFormat()
 {
     return m_ePixelFormat;

@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include "tiffio.h"
 #include <string>
 #include <ctype.h>
+#include "support/base64.h"
 
 NS_CC_BEGIN
 
@@ -88,6 +89,25 @@ CCImage::CCImage()
 CCImage::~CCImage()
 {
     CC_SAFE_DELETE_ARRAY(m_pData);
+}
+
+std::string CCImage::toBase64()
+{
+	unsigned char* out = NULL;
+	base64Encode(m_pData,m_nWidth*m_nHeight*m_nBitsPerComponent,&out);
+	std::string ret = reinterpret_cast<char*>(out);
+	delete[] out;
+	return ret;
+}
+
+bool CCImage::initWithBase64(const char * pStrData, 
+                           int nWidth,
+                           int nHeight)
+{
+	unsigned char *bytes = NULL;
+	int len = base64Decode(reinterpret_cast< const unsigned char* >(pStrData),nWidth*nHeight*sizeof(int),&bytes);
+	initWithImageData(bytes,len,kFmtRawData,nWidth,nHeight,4);
+	return true;
 }
 
 bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = eFmtPng*/)

@@ -52,6 +52,8 @@ void CC_DLL CCLuaLog(const char * pszFormat);
 */
 void CC_DLL CCMessageBox(const char * pszMsg, const char * pszTitle);
 
+
+
 /**
 @brief Enum the language type supported now
 */

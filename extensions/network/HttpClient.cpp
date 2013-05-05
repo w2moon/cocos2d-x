@@ -161,7 +161,6 @@ static void* networkThread(void *data)
                 
         // write data to HttpResponse
         response->setResponseCode(responseCode);
-        
         if (retValue != 0) 
         {
             response->setSucceed(false);
@@ -249,6 +248,7 @@ int processGetTask(CCHttpRequest *request, write_callback callback, void *stream
         /* handle custom header data */
         /* create curl linked list */
         struct curl_slist *cHeaders=NULL;
+
         /* get custom header data (if set) */
        	std::vector<std::string> headers=request->getHeaders();
       		if(!headers.empty())

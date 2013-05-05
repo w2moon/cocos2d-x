@@ -28,8 +28,8 @@
     <Filter Include="AssetsManager">
       <UniqueIdentifier>{49487dbe-5758-436a-b014-8e2edc6b33ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ImagePicker">
-      <UniqueIdentifier>{a558b9fb-c9a9-4de9-8135-ea33b77b5eb8}</UniqueIdentifier>
+    <Filter Include="CCImagePicker">
+      <UniqueIdentifier>{3aac7259-18ac-478d-b601-1938e74c1d5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -177,8 +177,8 @@
     <ClCompile Include="..\AssetsManager\AssetsManager.cpp">
       <Filter>AssetsManager</Filter>
     </ClCompile>
-    <ClCompile Include="..\ImagePicker\src\CCImagePickerImplWIN32.cpp">
-      <Filter>ImagePicker</Filter>
+    <ClCompile Include="..\CCImagePicker\CCImagePickerImplWIN32.cpp">
+      <Filter>CCImagePicker</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -352,8 +352,11 @@
     <ClInclude Include="..\AssetsManager\AssetsManager.h">
       <Filter>AssetsManager</Filter>
     </ClInclude>
-    <ClInclude Include="..\ImagePicker\include\CCImagePicker.h">
-      <Filter>ImagePicker</Filter>
+    <ClInclude Include="..\CCImagePicker\CCImagePicker.h">
+      <Filter>CCImagePicker</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\scripting\javascript\bindings\proj.win32\libJSBinding.vcxproj" />
   </ItemGroup>
 </Project>

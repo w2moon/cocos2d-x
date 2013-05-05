@@ -28,6 +28,7 @@ THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#include "support/base64.h"
 
 typedef struct
 {
@@ -316,6 +317,34 @@ CCImage::~CCImage()
     CC_SAFE_DELETE_ARRAY(m_pData);
 }
 
+std::string CCImage::toBase64()
+{
+	unsigned char* out = NULL;
+    
+    //compress
+    
+    //tobase64
+	base64Encode(m_pData,m_nWidth*m_nHeight*4,&out);
+	std::string ret = reinterpret_cast<char*>(out);
+	delete[] out;
+	return ret;
+}
+
+bool CCImage::initWithBase64(const char * pStrData,
+                             int nWidth,
+                             int nHeight)
+{
+	unsigned char *bytes = NULL;
+    
+    //tobytes
+	int len = base64Decode(reinterpret_cast< const unsigned char* >(pStrData),nWidth*nHeight*sizeof(int),&bytes);
+    
+    //uncompress
+	initWithImageData(bytes,len,kFmtRawData,nWidth,nHeight,4);
+    delete[] bytes;
+	return true;
+}
+
 bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = eFmtPng*/)
 {
 	bool bRet = false;
@@ -422,6 +451,7 @@ bool CCImage::_initWithPngData(void *pData, int nDatalen)
     assert(0);
 	return false;
 }
+
 
 bool CCImage::_saveImageToPNG(const char *pszFilePath, bool bIsToRGB)
 {

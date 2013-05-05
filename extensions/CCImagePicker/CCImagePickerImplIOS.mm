@@ -1,4 +1,4 @@
-//
+﻿//
 //  ImagePicker.m
 //  CCImagePicker
 //
@@ -14,8 +14,11 @@ USING_NS_CC_EXT;
 
 @implementation CCImagePickerImplIOS
 
+@synthesize pPickedImage;
+@synthesize picked;
 @synthesize imagePicker;
 @synthesize pTarget,pSelector;
+@synthesize deswidth,desheight;
 
 +(BOOL)canUseCamera
 {
@@ -27,7 +30,7 @@ USING_NS_CC_EXT;
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary];
 }
 
-+(id)create:(UIImagePickerControllerSourceType)sourceType canEdit:(BOOL)edit with:(CCObject*)obj func:(SEL_CallFuncO)cb
++(id)create:(UIImagePickerControllerSourceType)sourceType canEdit:(BOOL)edit with:(CCObject*)obj func:(SEL_CallFuncO)cb  width:(int)width height:(int)height
 {
     CCImagePickerImplIOS* pIpc = [[CCImagePickerImplIOS alloc] init];
 
@@ -37,10 +40,17 @@ USING_NS_CC_EXT;
     }
     s_picker = pIpc;
     
+  
+        pIpc.deswidth = width;
+        pIpc.desheight = height;
+   
+    pIpc.picked = false;
+    obj->retain();
     pIpc.pTarget = obj;
     pIpc.pSelector = cb;
 
     pIpc.imagePicker = [[UIImagePickerController alloc] init];
+    pIpc.imagePicker.sourceType = sourceType;
     pIpc.imagePicker.delegate = pIpc;
     if(edit)
     {
@@ -63,6 +73,11 @@ USING_NS_CC_EXT;
     return pIpc;
 }
 
+-(void)dealloc
+{
+    
+}
+
 -(void)closeView
 {
 
@@ -77,15 +92,15 @@ USING_NS_CC_EXT;
 }
 
 
-+(id)useCamera:(BOOL)edit with:(CCObject*)obj func:(SEL_CallFuncO)cb
++(id)useCamera:(BOOL)edit with:(CCObject*)obj func:(SEL_CallFuncO)cb  width:(int)width height:(int)height
 {
-    return  [CCImagePickerImplIOS create:UIImagePickerControllerSourceTypeCamera canEdit:edit with:obj func:cb];
+    return  [CCImagePickerImplIOS create:UIImagePickerControllerSourceTypeCamera canEdit:edit with:obj func:cb  width:width height:height];
 
 }
 
-+(id)usePhotoLibrary:(BOOL)edit with:(CCObject*)obj func:(SEL_CallFuncO)cb
++(id)usePhotoLibrary:(BOOL)edit with:(CCObject*)obj func:(SEL_CallFuncO)cb  width:(int)width height:(int)height
 {
-    return [CCImagePickerImplIOS create:UIImagePickerControllerSourceTypePhotoLibrary canEdit:edit with:obj func:cb];
+    return [CCImagePickerImplIOS create:UIImagePickerControllerSourceTypePhotoLibrary canEdit:edit with:obj func:cb  width:width height:height];
 }
 
 
@@ -95,7 +110,7 @@ USING_NS_CC_EXT;
     //[self dismissModalViewControllerAnimated:YES];
 	//[popoverController dismissPopoverAnimated:YES];
    // [self dismissViewControllerAnimated:YES completion:nil];
-    [self closeView];
+    
 
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];//原图
     if([picker allowsEditing])
@@ -115,24 +130,45 @@ USING_NS_CC_EXT;
             image = [self image:image centerInSize:CGSizeMake(s, s)];
         }
     }
-    NSData *imageData = UIImagePNGRepresentation(image);
+   // NSData *imageData = UIImagePNGRepresentation(image);
+    
+    CGImageRef imageRef = [image CGImage];
+    NSUInteger width = deswidth;//CGImageGetWidth(imageRef);
+    NSUInteger height = desheight;//CGImageGetHeight(imageRef);
+    int length = height * width * 4 * sizeof(unsigned char);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    unsigned char *rawData = new unsigned char[length];
+    NSUInteger bytesPerPixel = 4;
+    NSUInteger bytesPerRow = bytesPerPixel * width;
+    NSUInteger bitsPerComponent = 8;
+    CGContextRef context = CGBitmapContextCreate(rawData, width, height,
+                                                 bitsPerComponent, bytesPerRow, colorSpace,
+                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGColorSpaceRelease(colorSpace);
+    
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
+    CGContextRelease(context);
    // hiddenView.image = image;
    // image = [self imageFromView:hiddenView];//为了发送给服务器
 
   //  photoView.image = image;
 
     //下面就应该变为nsdata然后传给服务器了...........以下省略N个字
+
+    CCImage* pickdata= new CCImage();
+    pickdata->autorelease();
     
-    CCImagePickerData* pickdata = new CCImagePickerData();
-    pickdata->setWidth(image.size.width);
-    pickdata->setHeight(image.size.height);
-    void* bytes = new unsigned char[imageData.length];
-    [imageData getBytes:bytes length:imageData.length];
-    pickdata->setData(static_cast<unsigned char*>(bytes));
+    pickdata->initWithImageData(rawData,length,CCImage::kFmtRawData,width,height,8);
     
-    (pTarget->*pSelector)(pickdata);
+    delete[] rawData;
+   // s_picker.picked = true;
+  //  s_picker.pPickedImage = pickdata;
+  //  pickdata->retain();
     
-    pickdata->release();
+   (pTarget->*pSelector)(pickdata);
+    pTarget->release();
+    [s_picker closeView];
+    
 }
 
 
@@ -172,6 +208,54 @@ USING_NS_CC_EXT;
 
 namespace cocos2d { namespace extension {
 
+
+static CCImagePicker *s_pImagePicker = NULL;
+    
+    static CCImagePickerImplIOS* s_pImpl = NULL;
+
+CCImagePicker* CCImagePicker::getInstance()
+{
+    if (s_pImagePicker == NULL) {
+        s_pImagePicker = new CCImagePicker();
+    }
+    
+    return s_pImagePicker;
+}
+
+void CCImagePicker::destroyInstance()
+{
+	s_pImagePicker->release();
+}
+
+CCImagePicker::CCImagePicker()
+{
+//    CCDirector::sharedDirector()->getScheduler()->scheduleSelector(
+//                                                                   schedule_selector(CCImagePicker::dispatchCallbacks), this, 0, false);
+//    CCDirector::sharedDirector()->getScheduler()->pauseTarget(this);
+}
+
+CCImagePicker::~CCImagePicker()
+{
+  s_pImagePicker = NULL;
+}
+    
+void CCImagePicker::dispatchCallbacks(float delta)
+{
+    if(!s_picker.picked)
+    {
+        return;
+    }
+    s_picker.picked = false;
+    CCDirector::sharedDirector()->getScheduler()->pauseTarget(this);
+    
+    (s_picker.pTarget->*(s_picker.pSelector))(s_picker.pPickedImage);
+    
+    s_picker.pTarget->release();
+    
+    s_picker.pPickedImage->release();
+    [s_picker closeView];
+}
+
 bool CCImagePicker::canUseCamera()
 {
     return [CCImagePickerImplIOS canUseCamera];
@@ -182,13 +266,15 @@ bool CCImagePicker::canUsePhotoLibrary()
     return [CCImagePickerImplIOS canUsePhotoLibrary];
 }
 
-void CCImagePicker::useCamera(CCObject* pTarget, SEL_CallFuncO pSelector,bool edit)
+void CCImagePicker::useCamera(CCObject* pTarget, SEL_CallFuncO pSelector,int width,int height,bool edit)
 {
-    [CCImagePickerImplIOS useCamera:edit with:pTarget func:pSelector];
+    [CCImagePickerImplIOS useCamera:edit with:pTarget func:pSelector width:width height:height];
+   // CCDirector::sharedDirector()->getScheduler()->resumeTarget(this);
 }
 
-void CCImagePicker::usePhotoLibrary(CCObject* pTarget, SEL_CallFuncO pSelector,bool edit)
+void CCImagePicker::usePhotoLibrary(CCObject* pTarget, SEL_CallFuncO pSelector,int width,int height,bool edit)
 {
-    [CCImagePickerImplIOS usePhotoLibrary:edit with:pTarget func:pSelector];
+   [CCImagePickerImplIOS usePhotoLibrary:edit with:pTarget func:pSelector width:width height:height];
+  // CCDirector::sharedDirector()->getScheduler()->resumeTarget(this);
 }
 }}

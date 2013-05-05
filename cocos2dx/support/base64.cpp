@@ -30,9 +30,9 @@ namespace cocos2d {
 
 unsigned char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-int _base64Decode( unsigned char *input, unsigned int input_len, unsigned char *output, unsigned int *output_len );
+int _base64Decode(const unsigned char *input, unsigned int input_len, unsigned char *output, unsigned int *output_len );
 
-int _base64Decode( unsigned char *input, unsigned int input_len, unsigned char *output, unsigned int *output_len )
+int _base64Decode(const unsigned char *input, unsigned int input_len, unsigned char *output, unsigned int *output_len )
 {
     static char inalphabet[256], decoder[256];
     int i, bits, c = 0, char_count, errors = 0;
@@ -95,7 +95,9 @@ int _base64Decode( unsigned char *input, unsigned int input_len, unsigned char *
     return errors;
 }
 
-int base64Decode(unsigned char *in, unsigned int inLength, unsigned char **out)
+
+
+int base64Decode(const unsigned char *in, unsigned int inLength, unsigned char **out)
 {
     unsigned int outLength = 0;
     
@@ -116,5 +118,44 @@ int base64Decode(unsigned char *in, unsigned int inLength, unsigned char **out)
     }
     return outLength;
 }
+
+static const char sm_base64digits[65] =
+	   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static const char sm_base64val[128] = {
+		-1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
+		-1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
+		-1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1, 62, -1,-1,-1, 63,
+		 52, 53, 54, 55,  56, 57, 58, 59,  60, 61,-1,-1, -1,-1,-1,-1,
+		-1,  0,  1,  2,   3,  4,  5,  6,   7,  8,  9, 10,  11, 12, 13, 14,
+		 15, 16, 17, 18,  19, 20, 21, 22,  23, 24, 25,-1, -1,-1,-1,-1,
+		-1, 26, 27, 28,  29, 30, 31, 32,  33, 34, 35, 36,  37, 38, 39, 40,
+		 41, 42, 43, 44,  45, 46, 47, 48,  49, 50, 51,-1, -1,-1,-1,-1
+	};
+
+
+	void base64Encode(const unsigned char *in, int inLength,unsigned char **pout)
+	{
+		int size = (inLength / 3 + (inLength % 3 ? 1 : 0)) * 4 + 1;
+		*pout = new unsigned char[size];
+		unsigned char* out = *pout;
+		for ( ; inLength >= 3; inLength -= 3, in += 3) {
+			*out++ = sm_base64digits[in[0] >> 2];
+			*out++ = sm_base64digits[((in[0] << 4) & 0x30) | (in[1] >> 4)];
+			*out++ = sm_base64digits[((in[1] << 2) & 0x3c) | (in[2] >> 6)];
+			*out++ = sm_base64digits[in[2] & 0x3f];
+		}
+		if (inLength > 0) {
+			unsigned char fragment;
+	        
+			*out++ = sm_base64digits[in[0] >> 2];
+			fragment = (in[0] << 4) & 0x30;
+			if (inLength > 1)
+				fragment |= in[1] >> 4;
+			*out++ = sm_base64digits[fragment];
+			*out++ = (inLength < 2) ? '=' : sm_base64digits[(in[1] << 2) & 0x3c];
+			*out++ = '=';
+		}
+		*out = '\0';
+	}
 
 }//namespace   cocos2d 

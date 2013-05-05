@@ -24,6 +24,8 @@ THE SOFTWARE.
 #ifndef __SUPPORT_CC_UTILS_H__
 #define __SUPPORT_CC_UTILS_H__
 
+#include "cocoa/CCArray.h"
+#include <string>
 /** @file ccUtils.h
 Misc free functions
 */
@@ -44,6 +46,16 @@ Examples:
 */
 
 unsigned long ccNextPOT( unsigned long value );
+
+class CCUtil : public CCObject
+{
+public:
+
+/**
+@brief get mac address
+*/
+    static std::string macAddress();
+};
 
 }
 

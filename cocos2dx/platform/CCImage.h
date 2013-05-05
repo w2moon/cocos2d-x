@@ -26,7 +26,7 @@ THE SOFTWARE.
 #define __CC_IMAGE_H__
 
 #include "cocoa/CCObject.h"
-
+#include <string>
 NS_CC_BEGIN
 
 /**
@@ -126,9 +126,21 @@ public:
     */
     bool saveToFile(const char *pszFilePath, bool bIsToRGB = true);
 
-    CC_SYNTHESIZE_READONLY(unsigned short,   m_nWidth,       Width);
-    CC_SYNTHESIZE_READONLY(unsigned short,   m_nHeight,      Height);
-    CC_SYNTHESIZE_READONLY(int,     m_nBitsPerComponent,   BitsPerComponent);
+	protected: unsigned short m_nWidth;
+	public: virtual int getWidth(void) const { return m_nWidth; }
+
+	protected: unsigned short m_nHeight;
+	public: virtual int getHeight(void) const { return m_nHeight; }
+
+	protected: int m_nBitsPerComponent;
+	public: virtual int getBitsPerComponent(void) const { return m_nBitsPerComponent; }
+
+public:
+	std::string toBase64();
+
+	bool initWithBase64(const char * pStrData, 
+                           int nWidth = 0,
+                           int nHeight = 0);
 
 protected:
     bool _initWithJpgData(void *pData, int nDatalen);

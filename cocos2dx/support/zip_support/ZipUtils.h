@@ -87,6 +87,13 @@ namespace cocos2d
         * @since v0.99.5
         */
         static int ccInflateCCZFile(const char *filename, unsigned char **out);
+        
+        /**
+        *
+        *
+        * @returns the length of the inflated buffer
+        */
+        static int ccDeflateMemory(unsigned char *in, unsigned int inLength, unsigned char **out);
 
     private:
         static int ccInflateMemoryWithHint(unsigned char *in, unsigned int inLength, unsigned char **out, unsigned int *outLength, 
