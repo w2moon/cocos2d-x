@@ -97,7 +97,7 @@ std::string CCImage::toBase64()
 {
 	unsigned char* zip = NULL;
 	unsigned char* out = NULL;
-	int length = m_nWidth*m_nHeight*m_nBitsPerComponent;
+	int length = m_nWidth*m_nHeight*4;
 	int ziplength = ZipUtils::ccDeflateMemory(m_pData,length,&zip);
 	base64Encode(zip,ziplength,&out);
 	std::string ret = reinterpret_cast<char*>(out);

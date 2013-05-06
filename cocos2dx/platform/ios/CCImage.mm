@@ -29,6 +29,7 @@ THE SOFTWARE.
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #include "support/base64.h"
+#include "support/zip_support/ZipUtils.h"
 
 typedef struct
 {
@@ -319,15 +320,16 @@ CCImage::~CCImage()
 
 std::string CCImage::toBase64()
 {
+	unsigned char* zip = NULL;
 	unsigned char* out = NULL;
-    
-    //compress
-    
-    //tobase64
-	base64Encode(m_pData,m_nWidth*m_nHeight*4,&out);
+	int length = m_nWidth*m_nHeight*4;
+	int ziplength = ZipUtils::ccDeflateMemory(m_pData,length,&zip);
+	base64Encode(zip,ziplength,&out);
 	std::string ret = reinterpret_cast<char*>(out);
+	delete[] zip;
 	delete[] out;
 	return ret;
+
 }
 
 bool CCImage::initWithBase64(const char * pStrData,
@@ -335,13 +337,14 @@ bool CCImage::initWithBase64(const char * pStrData,
                              int nHeight)
 {
 	unsigned char *bytes = NULL;
+	unsigned char* zip = NULL;
+	int len = base64Decode(reinterpret_cast< const unsigned char* >(pStrData),strlen(pStrData)+1,&bytes);
+	
+	len = ZipUtils::ccInflateMemory(bytes,len,&zip);
+	initWithImageData(zip,len,kFmtRawData,nWidth,nHeight,4);
     
-    //tobytes
-	int len = base64Decode(reinterpret_cast< const unsigned char* >(pStrData),nWidth*nHeight*sizeof(int),&bytes);
-    
-    //uncompress
-	initWithImageData(bytes,len,kFmtRawData,nWidth,nHeight,4);
-    delete[] bytes;
+	delete[] zip;
+	delete[] bytes;
 	return true;
 }
 
