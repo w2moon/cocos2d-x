@@ -44,44 +44,48 @@ bool CCImagePicker::canUsePhotoLibrary()
 {
     return false;
 }
-#define PICKER_TEST 128
-void CCImagePicker::useCamera(CCObject* pTarget, SEL_CallFuncO pSelector,bool edit)
+
+void CCImagePicker::dispatchCallbacks(float delta)
+{
+}
+
+void CCImagePicker::useCamera(CCObject* pTarget, SEL_CallFuncO pSelector,int width,int height,bool edit)
 {
 	CCImage* image = new CCImage();
 	image->autorelease();
 
-	unsigned char* bytes = new unsigned char[4*PICKER_TEST*PICKER_TEST];
-	for(int i=0;i<PICKER_TEST;++i)
-		for(int j=0;j<PICKER_TEST;++j)
+	unsigned char* bytes = new unsigned char[4*width*height];
+	for(int i=0;i<width;++i)
+		for(int j=0;j<height;++j)
 		{
-			int start = (i*PICKER_TEST+j)*4;
+			int start = (i*width+j)*4;
 			bytes[start] = 128;
 			bytes[start+1] = 128;
 			bytes[start+2] = 128;
 			bytes[start+3] = 255;
 		}
-	image->initWithImageData(bytes,4*64,CCImage::kFmtRawData,PICKER_TEST,PICKER_TEST,4);
+	image->initWithImageData(bytes,4*64,CCImage::kFmtRawData,width,height,4);
 	delete[] bytes;
     
     (pTarget->*pSelector)(image);
 }
 
-void CCImagePicker::usePhotoLibrary(CCObject* pTarget, SEL_CallFuncO pSelector,bool edit)
+void CCImagePicker::usePhotoLibrary(CCObject* pTarget, SEL_CallFuncO pSelector,int width,int height,bool edit)
 {
 	CCImage* image = new CCImage();
 	image->autorelease();
 
-	unsigned char* bytes = new unsigned char[4*PICKER_TEST*PICKER_TEST];
-	for(int i=0;i<PICKER_TEST;++i)
-		for(int j=0;j<PICKER_TEST;++j)
+	unsigned char* bytes = new unsigned char[4*width*height];
+	for(int i=0;i<width;++i)
+		for(int j=0;j<height;++j)
 		{
-			int start = (i*PICKER_TEST+j)*4;
+			int start = (i*width+j)*4;
 			bytes[start] = 128;
 			bytes[start+1] = 128;
 			bytes[start+2] = 128;
 			bytes[start+3] = 255;
 		}
-	image->initWithImageData(bytes,4*64,CCImage::kFmtRawData,PICKER_TEST,PICKER_TEST,4);
+	image->initWithImageData(bytes,4*64,CCImage::kFmtRawData,width,height,4);
 	delete[] bytes;
     
     (pTarget->*pSelector)(image);

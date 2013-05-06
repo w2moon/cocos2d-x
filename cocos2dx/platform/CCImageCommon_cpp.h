@@ -37,6 +37,8 @@ THE SOFTWARE.
 #include <ctype.h>
 #include "support/base64.h"
 
+#include "support/zip_support/ZipUtils.h"
+
 NS_CC_BEGIN
 
 // premultiply alpha, or the effect will wrong when want to use other pixel format in CCTexture2D,
@@ -93,9 +95,13 @@ CCImage::~CCImage()
 
 std::string CCImage::toBase64()
 {
+	unsigned char* zip = NULL;
 	unsigned char* out = NULL;
-	base64Encode(m_pData,m_nWidth*m_nHeight*m_nBitsPerComponent,&out);
+	int length = m_nWidth*m_nHeight*m_nBitsPerComponent;
+	int ziplength = ZipUtils::ccDeflateMemory(m_pData,length,&zip);
+	base64Encode(zip,ziplength,&out);
 	std::string ret = reinterpret_cast<char*>(out);
+	delete[] zip;
 	delete[] out;
 	return ret;
 }
@@ -105,8 +111,14 @@ bool CCImage::initWithBase64(const char * pStrData,
                            int nHeight)
 {
 	unsigned char *bytes = NULL;
-	int len = base64Decode(reinterpret_cast< const unsigned char* >(pStrData),nWidth*nHeight*sizeof(int),&bytes);
-	initWithImageData(bytes,len,kFmtRawData,nWidth,nHeight,4);
+	unsigned char* zip = NULL;
+	int len = base64Decode(reinterpret_cast< const unsigned char* >(pStrData),strlen(pStrData)+1,&bytes);
+	
+	len = ZipUtils::ccInflateMemory(bytes,len,&zip);
+	initWithImageData(zip,len,kFmtRawData,nWidth,nHeight,4);
+
+	delete[] zip;
+	delete[] bytes;
 	return true;
 }
 

@@ -46,6 +46,7 @@ typedef struct _ASTAT_
 } ASTAT, *PASTAT;
 
 #pragma comment(lib,"netapi32.lib")
+
 std::string  CCUtil::macAddress()
 {
 	char mac[32];

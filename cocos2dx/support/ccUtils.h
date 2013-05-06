@@ -47,10 +47,9 @@ Examples:
 
 unsigned long ccNextPOT( unsigned long value );
 
-class CCUtil : public CCObject
+class CC_DLL CCUtil : public CCObject
 {
 public:
-
 /**
 @brief get mac address
 */

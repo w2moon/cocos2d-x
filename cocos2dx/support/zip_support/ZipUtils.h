@@ -91,7 +91,7 @@ namespace cocos2d
         /**
         *
         *
-        * @returns the length of the inflated buffer
+        * @returns the length of the deflated buffer
         */
         static int ccDeflateMemory(unsigned char *in, unsigned int inLength, unsigned char **out);
 

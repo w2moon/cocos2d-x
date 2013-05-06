@@ -105,6 +105,57 @@ int ZipUtils::ccInflateMemoryWithHint(unsigned char *in, unsigned int inLength, 
     return err;
 }
 
+ int ZipUtils::ccDeflateMemory(unsigned char *in, unsigned int inLength, unsigned char **out)
+ {
+	 std::vector<uint8_t> buffer;
+
+	 const size_t BUFSIZE = 128 * 1024;
+	 uint8_t temp_buffer[BUFSIZE];
+
+	 z_stream strm;
+	 strm.zalloc = 0;
+	 strm.zfree = 0;
+	 strm.next_in = in;
+	 strm.avail_in = inLength;
+	 strm.next_out = temp_buffer;
+	 strm.avail_out = BUFSIZE;
+
+	 deflateInit(&strm, Z_BEST_COMPRESSION);
+
+	 while (strm.avail_in != 0)
+	 {
+		 int res = deflate(&strm, Z_NO_FLUSH);
+		 assert(res == Z_OK);
+		 if (strm.avail_out == 0)
+		 {
+			 buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
+			 strm.next_out = temp_buffer;
+			 strm.avail_out = BUFSIZE;
+		 }
+	 }
+
+	 int deflate_res = Z_OK;
+	 while (deflate_res == Z_OK)
+	 {
+		 if (strm.avail_out == 0)
+		 {
+			 buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
+			 strm.next_out = temp_buffer;
+			 strm.avail_out = BUFSIZE;
+		 }
+		 deflate_res = deflate(&strm, Z_FINISH);
+	 }
+
+	 assert(deflate_res == Z_STREAM_END);
+	 buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE - strm.avail_out);
+	 deflateEnd(&strm);
+
+	 *out = new unsigned char[buffer.size()];
+	 memcpy(*out,&(buffer[0]),buffer.size());
+	 //out_data.swap(buffer);
+	 return buffer.size();
+ }
+
 int ZipUtils::ccInflateMemoryWithHint(unsigned char *in, unsigned int inLength, unsigned char **out, unsigned int outLengthHint)
 {
     unsigned int outLength = 0;
