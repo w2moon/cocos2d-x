@@ -232,20 +232,6 @@ bool configureCURL(CURL *handle)
 
 class CURLRaii
 {
-<<<<<<< HEAD
-    CURLcode code = CURL_LAST;
-    CURL *curl = curl_easy_init();
-    
-    do {
-        if (!configureCURL(curl)) 
-        {
-            break;
-        }
-        
-        /* handle custom header data */
-        /* create curl linked list */
-        struct curl_slist *cHeaders=NULL;
-=======
     /// Instance of CURL
     CURL *m_curl;
     /// Keeps custom header data
@@ -284,7 +270,6 @@ public:
             return false;
         if (!configureCURL(m_curl))
             return false;
->>>>>>> core/master
 
         /* get custom header data (if set) */
        	std::vector<std::string> headers=request->getHeaders();
