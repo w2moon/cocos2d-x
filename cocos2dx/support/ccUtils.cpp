@@ -80,8 +80,8 @@ std::string  CCUtil::macAddress()
 	 
 	        if (uRetCode == 0)
 	        {
-	            sprintf(mac, "%02x%02x%02x%02x%02x%02x ",
-	            //sprintf(mac, "%02X%02X%02X%02X%02X%02X ",
+	            sprintf(mac, "%02x%02x%02x%02x%02x%02x",
+	            //sprintf(mac, "%02X%02X%02X%02X%02X%02X",
 	                    Adapter.adapt.adapter_address[0],
 	                    Adapter.adapt.adapter_address[1],
 	                    Adapter.adapt.adapter_address[2],
