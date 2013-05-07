@@ -308,21 +308,21 @@ public:
      * @param x     X coordinate for position
      * @param y     Y coordinate for position
      */
-    void setPosition(float x, float y);
+    virtual void setPosition(float x, float y);
     /**
      * Gets position in a more efficient way, returns two number instead of a CCPoint object
      *
      * @see setPosition(float, float)
      */
-    void getPosition(float* x, float* y);
+    virtual void getPosition(float* x, float* y);
     /**
      * Gets/Sets x or y coordinate individually for position.
      * These methods are used in Lua and Javascript Bindings
      */
-    void  setPositionX(float x);
-    float getPositionX(void);
-    void  setPositionY(float y);
-    float getPositionY(void);
+    virtual void  setPositionX(float x);
+    virtual float getPositionX(void);
+    virtual void  setPositionY(float y);
+    virtual float getPositionY(void);
     
     
     /**
@@ -1376,6 +1376,7 @@ protected:
     int m_nScriptHandler;               ///< script handler for onEnter() & onExit(), used in Javascript binding and Lua binding.
     int m_nUpdateScriptHandler;         ///< script handler for update() callback per frame, which is invoked from lua & javascript.
     ccScriptType m_eScriptType;         ///< type of script binding, lua or javascript
+
 };
 
 //#pragma mark - CCNodeRGBA

@@ -43,7 +43,7 @@ THE SOFTWARE.
 #if CC_NODE_RENDER_SUBPIXEL
 #define RENDER_IN_SUBPIXEL
 #else
-#define RENDER_IN_SUBPIXEL (__ARGS__) (ceil(__ARGS__))
+#define RENDER_IN_SUBPIXEL(__ARGS__) (ceil(__ARGS__))
 #endif
 
 NS_CC_BEGIN
@@ -71,7 +71,7 @@ CCNode::CCNode(void)
 , m_nZOrder(0)
 , m_pChildren(NULL)
 , m_pParent(NULL)
-// "whole screen" objects. like Scenes and Layers, should set m_bIgnoreAnchorPointForPosition to false
+// "whole screen" objects. like Scenes and Layers, should set m_bIgnoreAnchorPointForPosition to true
 , m_nTag(kCCNodeTagInvalid)
 // userData is always inited as nil
 , m_pUserData(NULL)
@@ -662,7 +662,7 @@ void CCNode::removeChildByTag(int tag, bool cleanup)
 
     if (child == NULL)
     {
-        CCLOG("cocos2d: removeChildByTag: child not found!");
+        CCLOG("cocos2d: removeChildByTag(tag = %d): child not found!", tag);
     }
     else
     {

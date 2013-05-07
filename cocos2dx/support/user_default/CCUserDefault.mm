@@ -81,6 +81,7 @@ static tinyxml2::XMLElement* getXMLNodeForKey(const char* pKey, tinyxml2::XMLDoc
 			break;
 		}
 		xmlDoc->Parse(pXmlBuffer);
+        delete[] pXmlBuffer;
 		// get root node
 		rootNode = xmlDoc->RootElement();
 		if (NULL == rootNode)
@@ -451,7 +452,13 @@ void CCUserDefault::initXMLFilePath()
 #ifdef KEEP_COMPATABILITY
     if (! m_sbIsFilePathInitialized)
     {
-        m_sFilePath += CCFileUtils::sharedFileUtils()->getWritablePath() + XML_FILE_NAME;
+        // xml file is stored in cache directory before 2.1.2
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        m_sFilePath = [documentsDirectory UTF8String];
+        m_sFilePath.append("/");
+        
+        m_sFilePath +=  XML_FILE_NAME;
         m_sbIsFilePathInitialized = true;
     }
 #endif
