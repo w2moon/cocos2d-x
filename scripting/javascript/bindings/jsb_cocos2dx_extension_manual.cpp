@@ -439,28 +439,34 @@ public:
     JSCCHttpRequestWrapper() {}
     virtual ~JSCCHttpRequestWrapper() {}
     
-    void responseCallbackND(CCHttpClient* client,CCHttpResponse *response) const {
+    void responseCallback(CCHttpClient* client,CCHttpResponse *response) const {
         
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
         jsval retval = JSVAL_NULL;
         
         if(!JSVAL_IS_VOID(jsCallback)  && !JSVAL_IS_VOID(jsThisObj)) {
 			jsval jsargs[2];
-			js_proxy_t *proxy0 = js_get_or_create_proxy<cocos2d::extension::CCHttpClient>(cx, client);
-			jsargs[0] = OBJECT_TO_JSVAL(proxy0->obj);
+			js_proxy_t* proxy;
+
+			JS_GET_PROXY(proxy,client);
+			jsargs[0] = OBJECT_TO_JSVAL(proxy->obj);
+			/*js_proxy_t *proxy0 = js_get_or_create_proxy<cocos2d::extension::CCHttpClient>(cx, client);
+			jsargs[0] = OBJECT_TO_JSVAL(proxy0->obj);*/
 
 			js_proxy_t *proxy1 = js_get_or_create_proxy<cocos2d::extension::CCHttpResponse>(cx, response);
 			jsargs[1] = OBJECT_TO_JSVAL(proxy1->obj);
 			
             JS_CallFunctionValue(cx, JSVAL_TO_OBJECT(jsThisObj), jsCallback, 2, jsargs, &retval);
 
-			js_proxy_t* nproxy;
+			/*js_proxy_t* nproxy;
 			js_proxy_t* jsproxy;
 			JS_GET_PROXY(nproxy, client);
 			JS_GET_NATIVE_PROXY(jsproxy, nproxy->obj);
 			JS_RemoveObjectRoot(cx, &jsproxy->obj);
-			JS_REMOVE_PROXY(nproxy,jsproxy);
+			JS_REMOVE_PROXY(nproxy,jsproxy);*/
 
+			js_proxy_t* nproxy;
+			js_proxy_t* jsproxy;
 			JS_GET_PROXY(nproxy, response);
 			JS_GET_NATIVE_PROXY(jsproxy, nproxy->obj);
 			JS_RemoveObjectRoot(cx, &jsproxy->obj);
@@ -488,7 +494,7 @@ static JSBool js_cocos2dx_CCHttpRequest_setResponseCallback(JSContext *cx, uint3
             tmpCobj->setJSCallbackFunc(argv[1]);
         }
         
-		request->setResponseCallback(tmpCobj,callfuncND_selector(JSCCHttpRequestWrapper::responseCallbackND));
+		request->setResponseCallback(tmpCobj,cocos2d::extension::SEL_HttpResponse(&JSCCHttpRequestWrapper::responseCallback));
         
         JS_SetReservedSlot(proxy->obj, 0, argv[0]);
         JS_SetReservedSlot(proxy->obj, 1, argv[1]);
