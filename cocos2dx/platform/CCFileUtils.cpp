@@ -585,7 +585,6 @@ std::string CCFileUtils::getPathForFilename(const std::string& filename, const s
     std::string path = searchPath;
     path += file_path;
     path += resolutionDirectory;
-    
     path = getFullPathForDirectoryAndFilename(path, file);
     
     //CCLOG("getPathForFilename, fullPath = %s", path.c_str());
@@ -635,6 +634,8 @@ std::string CCFileUtils::fullPathForFilename(const char* pszFileName)
             }
         }
     }
+
+	//read from pkg
     
     CCLOG("cocos2d: fullPathForFilename: No file found at %s. Possible missing file.", pszFileName);
     
