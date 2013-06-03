@@ -30,6 +30,7 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 ipch/
 *.opensdf
+publish.win32/
 
 # Ignore files build by ndk and eclipse
 libs/
