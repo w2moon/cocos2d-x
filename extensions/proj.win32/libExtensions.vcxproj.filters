@@ -13,9 +13,6 @@
     <Filter Include="GUI\CCScrollView">
       <UniqueIdentifier>{46797895-f71d-4ddb-b381-d0884e678d39}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI\network">
-      <UniqueIdentifier>{2a7741ff-87a5-41c8-8e51-d7a1cf0c8e4d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="physics_nodes">
       <UniqueIdentifier>{d5806151-7ae1-4fef-af5a-2fa1d1c7377b}</UniqueIdentifier>
     </Filter>
@@ -28,13 +25,14 @@
     <Filter Include="AssetsManager">
       <UniqueIdentifier>{49487dbe-5758-436a-b014-8e2edc6b33ae}</UniqueIdentifier>
     </Filter>
-<<<<<<< HEAD
     <Filter Include="CCImagePicker">
       <UniqueIdentifier>{3aac7259-18ac-478d-b601-1938e74c1d5d}</UniqueIdentifier>
-=======
+	</Filter>
     <Filter Include="spine">
       <UniqueIdentifier>{ff4b5934-99d4-4ea7-9f50-a774192d9ca9}</UniqueIdentifier>
->>>>>>> core/master
+    </Filter>
+    <Filter Include="network">
+      <UniqueIdentifier>{2a7741ff-87a5-41c8-8e51-d7a1cf0c8e4d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,7 +40,7 @@
       <Filter>GUI\CCScrollView</Filter>
     </ClCompile>
     <ClCompile Include="..\network\HttpClient.cpp">
-      <Filter>GUI\network</Filter>
+      <Filter>network</Filter>
     </ClCompile>
     <ClCompile Include="..\GUI\CCScrollView\CCSorting.cpp">
       <Filter>GUI\CCScrollView</Filter>
@@ -182,10 +180,9 @@
     <ClCompile Include="..\AssetsManager\AssetsManager.cpp">
       <Filter>AssetsManager</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="..\CCImagePicker\CCImagePickerImplWIN32.cpp">
       <Filter>CCImagePicker</Filter>
-=======
+	</ClCompile>
     <ClCompile Include="..\spine\Animation.cpp">
       <Filter>spine</Filter>
     </ClCompile>
@@ -242,7 +239,9 @@
     </ClCompile>
     <ClCompile Include="..\spine\spine-cocos2dx.cpp">
       <Filter>spine</Filter>
->>>>>>> core/master
+    </ClCompile>
+    <ClCompile Include="..\network\Websocket.cpp">
+      <Filter>network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -252,13 +251,13 @@
     <ClInclude Include="..\cocos-ext.h" />
     <ClInclude Include="..\ExtensionMacros.h" />
     <ClInclude Include="..\network\HttpClient.h">
-      <Filter>GUI\network</Filter>
+      <Filter>network</Filter>
     </ClInclude>
     <ClInclude Include="..\network\HttpRequest.h">
-      <Filter>GUI\network</Filter>
+      <Filter>network</Filter>
     </ClInclude>
     <ClInclude Include="..\network\HttpResponse.h">
-      <Filter>GUI\network</Filter>
+      <Filter>network</Filter>
     </ClInclude>
     <ClInclude Include="..\GUI\CCScrollView\CCSorting.h">
       <Filter>GUI\CCScrollView</Filter>
@@ -416,14 +415,13 @@
     <ClInclude Include="..\AssetsManager\AssetsManager.h">
       <Filter>AssetsManager</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="..\CCImagePicker\CCImagePicker.h">
       <Filter>CCImagePicker</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\scripting\javascript\bindings\proj.win32\libJSBinding.vcxproj" />
-=======
+
     <ClInclude Include="..\spine\Animation.h">
       <Filter>spine</Filter>
     </ClInclude>
@@ -484,6 +482,8 @@
     <ClInclude Include="..\spine\spine.h">
       <Filter>spine</Filter>
     </ClInclude>
->>>>>>> core/master
+    <ClInclude Include="..\network\Websocket.h">
+      <Filter>network</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

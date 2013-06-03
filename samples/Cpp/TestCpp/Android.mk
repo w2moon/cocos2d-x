@@ -55,6 +55,7 @@ Classes/ExtensionsTest/CocosBuilderTest/MenuTest/MenuTestLayer.cpp \
 Classes/ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.cpp \
 Classes/ExtensionsTest/CocosBuilderTest/TimelineCallbackTest/TimelineCallbackTestLayer.cpp \
 Classes/ExtensionsTest/NetworkTest/HttpClientTest.cpp \
+Classes/ExtensionsTest/NetworkTest/WebSocketTest.cpp \
 Classes/ExtensionsTest/EditBoxTest/EditBoxTest.cpp \
 Classes/ExtensionsTest/TableViewTest/TableViewTestScene.cpp \
 Classes/ExtensionsTest/TableViewTest/CustomTableViewCell.cpp \
@@ -85,6 +86,7 @@ Classes/SpineTest/SpineTest.cpp \
 Classes/SpriteTest/SpriteTest.cpp \
 Classes/TextureCacheTest/TextureCacheTest.cpp \
 Classes/Texture2dTest/Texture2dTest.cpp \
+Classes/TexturePackerEncryptionTest/TextureAtlasEncryptionTest.cpp \
 Classes/TileMapTest/TileMapTest.cpp \
 Classes/TouchesTest/Ball.cpp \
 Classes/TouchesTest/Paddle.cpp \
@@ -93,6 +95,8 @@ Classes/TransitionsTest/TransitionsTest.cpp \
 Classes/UserDefaultTest/UserDefaultTest.cpp \
 Classes/ZwoptexTest/ZwoptexTest.cpp \
 Classes/FileUtilsTest/FileUtilsTest.cpp \
+Classes/DataVisitorTest/DataVisitorTest.cpp \
+Classes/ConfigurationTest/ConfigurationTest.cpp \
 Classes/controller.cpp \
 Classes/testBasic.cpp \
 Classes/AppDelegate.cpp \

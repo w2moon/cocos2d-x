@@ -39,6 +39,11 @@ THE SOFTWARE.
 
 #include "support/zip_support/ZipUtils.h"
 
+#ifdef EMSCRIPTEN
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#endif // EMSCRIPTEN
+
 NS_CC_BEGIN
 
 // premultiply alpha, or the effect will wrong when want to use other pixel format in CCTexture2D,
@@ -125,6 +130,27 @@ bool CCImage::initWithBase64(const char * pStrData,
 bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = eFmtPng*/)
 {
     bool bRet = false;
+
+#ifdef EMSCRIPTEN
+    // Emscripten includes a re-implementation of SDL that uses HTML5 canvas
+    // operations underneath. Consequently, loading images via IMG_Load (an SDL
+    // API) will be a lot faster than running libpng et al as compiled with
+    // Emscripten.
+    SDL_Surface *iSurf = IMG_Load(strPath);
+
+    int size = 4 * (iSurf->w * iSurf->h);
+    bRet = _initWithRawData((void*)iSurf->pixels, size, iSurf->w, iSurf->h, 8, true);
+
+    unsigned int *tmp = (unsigned int *)m_pData;
+    int nrPixels = iSurf->w * iSurf->h;
+    for(int i = 0; i < nrPixels; i++)
+    {
+        unsigned char *p = m_pData + i * 4;
+        tmp[i] = CC_RGB_PREMULTIPLY_ALPHA( p[0], p[1], p[2], p[3] );
+    }
+
+    SDL_FreeSurface(iSurf);
+#else
     unsigned long nSize = 0;
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(strPath);
     unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(fullPath.c_str(), "rb", &nSize);
@@ -133,6 +159,8 @@ bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = e
         bRet = initWithImageData(pBuffer, nSize, eImgFmt);
     }
     CC_SAFE_DELETE_ARRAY(pBuffer);
+#endif // EMSCRIPTEN
+
     return bRet;
 }
 
@@ -183,7 +211,7 @@ bool CCImage::initWithImageData(void * pData,
         }
         else if (kFmtRawData == eFmt)
         {
-            bRet = _initWithRawData(pData, nDataLen, nWidth, nHeight, nBitsPerComponent);
+            bRet = _initWithRawData(pData, nDataLen, nWidth, nHeight, nBitsPerComponent, false);
             break;
         }
         else
@@ -320,7 +348,12 @@ bool CCImage::_initWithJpgData(void * data, int nSize)
         jpeg_mem_src( &cinfo, (unsigned char *) data, nSize );
 
         /* reading the image header which contains image information */
+#if (JPEG_LIB_VERSION >= 90)
+        // libjpeg 0.9 adds stricter types.
+        jpeg_read_header( &cinfo, TRUE );
+#else
         jpeg_read_header( &cinfo, true );
+#endif
 
         // we only support RGB or grayscale
         if (cinfo.jpeg_color_space != JCS_RGB)
@@ -679,7 +712,7 @@ bool CCImage::_initWithTiffData(void* pData, int nDataLen)
     return bRet;
 }
 
-bool CCImage::_initWithRawData(void * pData, int nDatalen, int nWidth, int nHeight, int nBitsPerComponent)
+bool CCImage::_initWithRawData(void * pData, int nDatalen, int nWidth, int nHeight, int nBitsPerComponent, bool bPreMulti)
 {
     bool bRet = false;
     do 
@@ -690,6 +723,7 @@ bool CCImage::_initWithRawData(void * pData, int nDatalen, int nWidth, int nHeig
         m_nHeight   = (short)nHeight;
         m_nWidth    = (short)nWidth;
         m_bHasAlpha = true;
+        m_bPreMulti = bPreMulti;
 
         // only RGBA8888 supported
         int nBytesPerComponent = 4;
@@ -700,6 +734,7 @@ bool CCImage::_initWithRawData(void * pData, int nDatalen, int nWidth, int nHeig
 
         bRet = true;
     } while (0);
+
     return bRet;
 }
 
