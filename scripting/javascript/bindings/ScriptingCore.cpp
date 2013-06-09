@@ -1349,6 +1349,7 @@ JSBool jsval_to_ccarray(JSContext* cx, jsval v, CCArray** ret) {
 }
 
 
+
 jsval ccarray_to_jsval(JSContext* cx, CCArray *arr)
 {
     JSObject *jsretArr = JS_NewArrayObject(cx, 0, NULL);
@@ -1371,7 +1372,8 @@ jsval ccarray_to_jsval(JSContext* cx, CCArray *arr)
             CCDouble* doubleVal = NULL;
             CCBool* boolVal = NULL;
             CCFloat* floatVal = NULL;
-            CCInteger* intVal = NULL;
+            CCInteger* intVal = NULL;	
+			CCImgObj* imgVal = NULL;
             
             if((strVal = dynamic_cast<cocos2d::CCString *>(obj))) {
                 arrElement = c_string_to_jsval(cx, strVal->getCString());
@@ -1387,6 +1389,8 @@ jsval ccarray_to_jsval(JSContext* cx, CCArray *arr)
                 arrElement = INT_TO_JSVAL(intVal->getValue());
             }  else if ((boolVal = dynamic_cast<CCBool*>(obj))) {
                 arrElement = BOOLEAN_TO_JSVAL(boolVal->getValue() ? JS_TRUE : JS_FALSE);
+            } else if ((imgVal = dynamic_cast<CCImgObj*>(obj))) {
+                arrElement = ccimgobj_to_jsval(cx, imgVal); 
             } else {
                 CCAssert(false, "the type isn't suppored.");
             }
@@ -1397,6 +1401,20 @@ jsval ccarray_to_jsval(JSContext* cx, CCArray *arr)
         ++i;
     }
     return OBJECT_TO_JSVAL(jsretArr);
+}
+
+
+
+
+jsval ccimgobj_to_jsval(JSContext* cx, CCImgObj *obj)
+{
+	js_proxy_t* jsproxy = js_get_or_create_proxy<cocos2d::CCImgObj>(cx, obj);
+    if (jsproxy) {
+          return OBJECT_TO_JSVAL(jsproxy->obj);
+     }
+	
+	return JSVAL_NULL;
+	
 }
 
 jsval ccdictionary_to_jsval(JSContext* cx, CCDictionary* dict)

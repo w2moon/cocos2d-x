@@ -31,6 +31,7 @@
 #include "CCArray.h"
 #include "CCDictionary.h"
 #include "CCSet.h"
+#include "platform/CCImage.h"
 
 NS_CC_BEGIN
 
@@ -74,6 +75,10 @@ void CCDataVisitor::visit(const CCSet *value)
     visitObject(value);
 }
 
+void CCDataVisitor::visit(const CCImgObj *value)
+{
+    visitObject(value);
+}
 // CCPrettyPrinter
 CCPrettyPrinter::CCPrettyPrinter(int indentLevel/* = 0 */)
 {
@@ -128,6 +133,12 @@ void CCPrettyPrinter::visit(const CCDouble *p)
 void CCPrettyPrinter::visit(const CCString *p)
 {
     _result += p->getCString();
+}
+
+
+void CCPrettyPrinter::visit(const CCImgObj *p)
+{
+    _result += "imgobj";
 }
 
 void CCPrettyPrinter::visit(const CCArray *p)
@@ -224,5 +235,7 @@ void CCPrettyPrinter::setIndentLevel(int indentLevel)
         _indentStr += "\t";
     }
 }
+
+
 
 NS_CC_END

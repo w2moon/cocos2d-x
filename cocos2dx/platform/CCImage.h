@@ -27,18 +27,54 @@ THE SOFTWARE.
 
 #include "cocoa/CCObject.h"
 #include <string>
+#include "cocoa/CCGeometry.h"
 NS_CC_BEGIN
+
+
+class CC_DLL CCImgObj : public CCObject
+{
+public:
+    CCImgObj(CCRect r)
+        : m_dValue(r) {}
+    CCRect getValue() const {return m_dValue;}
+
+    static CCImgObj* create(CCRect v)
+    {
+        CCImgObj* pRet = new CCImgObj(v);
+        if (pRet)
+        {
+            pRet->autorelease();
+        }
+        return pRet;
+    }
+
+    /* override functions */
+    virtual void acceptVisitor(CCDataVisitor &visitor) { visitor.visit(this); }
+
+private:
+    CCRect m_dValue;
+};
 
 /**
  * @addtogroup platform
  * @{
  */
 
+enum IMAGE_EFFECT{
+	IMAGE_EFFECT_THRESHOLD = 0,
+	IMAGE_EFFECT_ADAPTIVE,
+	IMAGE_EFFECT_COMPOSITE,
+	IMAGE_EFFECT_DAJIN,
+	IMAGE_EFFECT_CARTOON,
+};
+
 class CC_DLL CCImage : public CCObject
 {
 public:
     CCImage();
     ~CCImage();
+
+	static CCImage* create();
 
     typedef enum
     {
@@ -171,6 +207,16 @@ public:
 	bool initWithBase64(const char * pStrData, 
                            int nWidth = 0,
                            int nHeight = 0);
+
+	void resize(int nWidth,int nHeight);
+
+	CCArray* parse(const char* cascadeFile,double scale);
+
+	CCImage* createSubImage(CCRect r);
+
+	CCImage* effect(int type);
+
+	CCImage* erase(CCImage* maskimg);
 
 protected:
     bool _initWithJpgData(void *pData, int nDatalen);

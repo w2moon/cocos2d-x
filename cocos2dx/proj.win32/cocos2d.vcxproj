@@ -92,7 +92,7 @@
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\include;$(ProjectDir)..;$(ProjectDir)..\platform\win32;$(ProjectDir)..\platform\third_party\win32\iconv;$(ProjectDir)..\platform\third_party\win32\zlib;$(ProjectDir)..\platform\third_party\win32\libpng;$(ProjectDir)..\platform\third_party\win32\libjpeg;$(ProjectDir)..\platform\third_party\win32\libtiff;$(ProjectDir)..\platform\third_party\win32\libwebp;$(ProjectDir)..\platform\third_party\win32\pthread;$(ProjectDir)..\platform\third_party\win32\OGLES;..\include;$(ProjectDir)..\kazmath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\include;$(ProjectDir)..;$(ProjectDir)..\..\external\opencv\include;$(ProjectDir)..\platform\win32;$(ProjectDir)..\platform\third_party\win32\iconv;$(ProjectDir)..\platform\third_party\win32\zlib;$(ProjectDir)..\platform\third_party\win32\libpng;$(ProjectDir)..\platform\third_party\win32\libjpeg;$(ProjectDir)..\platform\third_party\win32\libtiff;$(ProjectDir)..\platform\third_party\win32\libwebp;$(ProjectDir)..\platform\third_party\win32\pthread;$(ProjectDir)..\platform\third_party\win32\OGLES;..\include;$(ProjectDir)..\kazmath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -109,9 +109,9 @@ xcopy /Y /Q "$(ProjectDir)..\platform\third_party\win32\libraries\*.*" "$(OutDir
 </Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;libzlib.lib;libpng.lib;libjpeg.lib;libtiff.lib;libwebp.lib;libiconv.lib;pthreadVCE2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;libzlib.lib;libpng.lib;libjpeg.lib;libtiff.lib;libwebp.lib;libiconv.lib;pthreadVCE2.lib;opencvd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\external\opencv\lib;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries> ;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
