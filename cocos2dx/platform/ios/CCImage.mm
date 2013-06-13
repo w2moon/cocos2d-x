@@ -23,6 +23,7 @@ THE SOFTWARE.
 ****************************************************************************/
 #import "CCImage.h"
 #import "CCFileUtils.h"
+#import "CCFileUtils.h"
 #import "CCCommon.h"
 #import <string>
 
@@ -432,35 +433,7 @@ CCImage::~CCImage()
     CC_SAFE_DELETE_ARRAY(m_pData);
 }
 
-std::string CCImage::toBase64()
-{
-	unsigned char* zip = NULL;
-	unsigned char* out = NULL;
-	int length = m_nWidth*m_nHeight*4;
-	int ziplength = ZipUtils::ccDeflateMemory(m_pData,length,&zip);
-	base64Encode(zip,ziplength,&out);
-	std::string ret = reinterpret_cast<char*>(out);
-	delete[] zip;
-	delete[] out;
-	return ret;
 
-}
-
-bool CCImage::initWithBase64(const char * pStrData,
-                             int nWidth,
-                             int nHeight)
-{
-	unsigned char *bytes = NULL;
-	unsigned char* zip = NULL;
-	int len = base64Decode(reinterpret_cast< const unsigned char* >(pStrData),strlen(pStrData)+1,&bytes);
-	
-	len = ZipUtils::ccInflateMemory(bytes,len,&zip);
-	initWithImageData(zip,len,kFmtRawData,nWidth,nHeight,4);
-    
-	delete[] zip;
-	delete[] bytes;
-	return true;
-}
 
 bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = eFmtPng*/)
 {
