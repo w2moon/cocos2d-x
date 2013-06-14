@@ -465,6 +465,9 @@
     <ClCompile Include="..\textures\CCTextureETC.cpp">
       <Filter>textures</Filter>
     </ClCompile>
+    <ClCompile Include="..\platform\CCImageProc.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\base_nodes\CCAtlasNode.h">
