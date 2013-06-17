@@ -1,7 +1,9 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-
+OPENCV_LIB_TYPE:=STATIC
+OPENCV_INSTALL_MODULES:=on
+include $(LOCAL_PATH)/../external/opencv/lib/native/jni/OpenCV.mk
 LOCAL_MODULE := cocos2dx_static
 
 LOCAL_MODULE_FILENAME := libcocos2d
@@ -77,6 +79,7 @@ particle_nodes/CCParticleSystem.cpp \
 particle_nodes/CCParticleBatchNode.cpp \
 particle_nodes/CCParticleSystemQuad.cpp \
 platform/CCImageCommonWebp.cpp \
+platform/CCImageProc.cpp \
 platform/CCSAXParser.cpp \
 platform/CCThread.cpp \
 platform/CCFileUtils.cpp \
@@ -143,11 +146,13 @@ touch_dispatcher/CCTouch.cpp
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/include \
                     $(LOCAL_PATH)/kazmath/include \
+		    $(LOCAL_PATH)/../external/opencv/lib/native/jni/include \
                     $(LOCAL_PATH)/platform/android
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/include \
                     $(LOCAL_PATH)/kazmath/include \
+		    $(LOCAL_PATH)/../external/opencv/lib/native/jni/include \
                     $(LOCAL_PATH)/platform/android
 
 LOCAL_LDLIBS := -lGLESv2 \
@@ -163,10 +168,11 @@ LOCAL_WHOLE_STATIC_LIBRARIES += cocos_jpeg_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libxml2_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libtiff_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libwebp_static
+#LOCAL_WHOLE_STATIC_LIBRARIES += opencv_core
 
 # define the macro to compile through support/zip_support/ioapi.c
-LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API
-LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API
+LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API -fexceptions
+LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API -fexceptions
 
 include $(BUILD_STATIC_LIBRARY)
 
