@@ -15,13 +15,13 @@ fi
 # paths
 
 if [ -z "${NDK_ROOT+aaa}" ]; then
-# ... if NDK_ROOT is not set, use "$HOME/bin/android-ndk"
-    NDK_ROOT="$HOME/bin/android-ndk"
+# ... if NDK_ROOT is not set, use "/Users/pengw/Documents/adt-bundle-mac-x86_64-20130522/android-ndk-r8e"
+    NDK_ROOT="/Users/pengw/Documents/adt-bundle-mac-x86_64-20130522/android-ndk-r8e"
 fi
 
 if [ -z "${CLANG_ROOT+aaa}" ]; then
 # ... if CLANG_ROOT is not set, use "$HOME/bin/clang+llvm-3.1"
-    CLANG_ROOT="$HOME/bin/clang+llvm-3.1"
+    CLANG_ROOT="/usr/bin/clang"
 fi
 
 if [ -z "${PYTHON_BIN+aaa}" ]; then

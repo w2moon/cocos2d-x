@@ -33,6 +33,7 @@ LOCAL_CFLAGS := -DCOCOS2D_JAVASCRIPT
 LOCAL_EXPORT_CFLAGS := -DCOCOS2D_JAVASCRIPT
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
+		    $(LOCAL_PATH)/../../../cocos2dx/support \
                     $(LOCAL_PATH)/../../../CocosDenshion/include
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \

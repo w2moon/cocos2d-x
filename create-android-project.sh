@@ -5,8 +5,8 @@
 # Don't modify the script until you know what you do.
 
 # set environment paramters
-NDK_ROOT_LOCAL="/home/laschweinski/android/android-ndk-r5"
-ANDROID_SDK_ROOT_LOCAL="/home/laschweinski/android/android-sdk-linux_86"
+NDK_ROOT_LOCAL="/Users/pengw/Documents/adt-bundle-mac-x86_64-20130522/android-ndk-r8e"
+ANDROID_SDK_ROOT_LOCAL="/Users/pengw/Documents/adt-bundle-mac-x86_64-20130522/sdk"
 
 NEED_BOX2D=false
 NEED_CHIPMUNK=false
