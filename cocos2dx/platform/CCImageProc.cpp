@@ -360,6 +360,48 @@ CCImage* CCImage::erase(CCImage* maskimg)
 	return out;
 }
 
+CCImage* CCImage::mask(CCImage* maskimg)
+{
+	if(!m_bHasAlpha)
+	{
+		return NULL;
+	}
+	int idx = 0,midx=0;
+	int bytes = m_bHasAlpha ? 4 : 3;
+	int mbytes = maskimg->m_bHasAlpha ? 4 : 3;
+
+	CCImage* out = CCImage::create();
+	out->m_nWidth = m_nWidth;
+	out->m_nHeight = m_nHeight;
+	out->m_bHasAlpha = m_bHasAlpha;
+	out->m_bPreMulti = m_bPreMulti;
+	out->m_nBitsPerComponent = m_nBitsPerComponent;
+	int length = m_nWidth*m_nHeight*bytes;
+	out->m_pData = new unsigned char[length];
+	memcpy(out->m_pData,m_pData,length);
+	for(int row=0;row < m_nHeight;++row)
+	{
+		for(int col=0;col<m_nWidth;++col)
+		{
+			idx = (row*m_nHeight+col)*bytes;
+			if(row<maskimg->m_nHeight
+			&& col<maskimg->m_nWidth)
+			{
+				midx=(row*maskimg->m_nHeight+col)*mbytes;
+				out->m_pData[idx+3] = maskimg->m_pData[midx+3]; 
+			}
+			else
+			{
+				out->m_pData[idx+0] = 0; 
+				out->m_pData[idx+1] = 0; 
+				out->m_pData[idx+2] = 0; 
+				out->m_pData[idx+3] = 0; 
+			}
+		}
+	}
+
+	return out;
+}
 
 NS_CC_END
 
