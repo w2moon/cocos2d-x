@@ -218,6 +218,8 @@ public:
 
 	CCImage* erase(CCImage* maskimg);
 
+	CCImage* mask(CCImage* maskimg);
+
 protected:
     bool _initWithJpgData(void *pData, int nDatalen);
     bool _initWithPngData(void *pData, int nDatalen);
