@@ -87,6 +87,9 @@ bool CCImage::initWithBase64(const char * pStrData,
 
 void CCImage::resize(int nWidth,int nHeight)
 {
+	if(mWidth == m_nWidth && nHeight == m_nHeight){
+		return;
+	}
 	int bytes = m_bHasAlpha ? 4 : 3;
 	IplImage* src = cvCreateImageHeader( cvSize(m_nWidth,m_nHeight), IPL_DEPTH_8U, bytes); 
 	IplImage* dst = cvCreateImage( cvSize(nWidth,nHeight), IPL_DEPTH_8U, bytes); 
@@ -362,9 +365,9 @@ CCImage* CCImage::erase(CCImage* maskimg)
 
 CCImage* CCImage::mask(CCImage* maskimg)
 {
-	if(!m_bHasAlpha)
+	//if(!m_bHasAlpha)
 	{
-		return NULL;
+	//	return NULL;
 	}
 	int idx = 0,midx=0;
 	int bytes = m_bHasAlpha ? 4 : 3;
@@ -373,33 +376,50 @@ CCImage* CCImage::mask(CCImage* maskimg)
 	CCImage* out = CCImage::create();
 	out->m_nWidth = m_nWidth;
 	out->m_nHeight = m_nHeight;
-	out->m_bHasAlpha = m_bHasAlpha;
+	out->m_bHasAlpha = true;
 	out->m_bPreMulti = m_bPreMulti;
 	out->m_nBitsPerComponent = m_nBitsPerComponent;
-	int length = m_nWidth*m_nHeight*bytes;
+	int length = m_nWidth*m_nHeight*4;
 	out->m_pData = new unsigned char[length];
-	memcpy(out->m_pData,m_pData,length);
+	if(m_bHasAlpha)
+	{
+		memcpy(out->m_pData,m_pData,length);
+	}
+	else
+	{
+		for(int row=0;row<m_nHeight;++row)
+		{
+			for(int col=0;col<m_nWidth;++col)
+			{
+					idx = (row*m_nHeight+col)*3;
+					midx = (row*m_nHeight+col)*4;
+					memcpy(out->m_pData+midx,m_pData+idx,sizeof(unsigned char)*3);
+					out->m_pData[midx+3] = 0xff;
+			}
+		}
+	}
+	
 	for(int row=0;row < m_nHeight;++row)
 	{
 		for(int col=0;col<m_nWidth;++col)
 		{
-			idx = (row*m_nHeight+col)*bytes;
+			idx = (row*m_nHeight+col)*4;
 			if(row<maskimg->m_nHeight
 			&& col<maskimg->m_nWidth)
 			{
 				midx=(row*maskimg->m_nHeight+col)*mbytes;
-				out->m_pData[idx+3] = maskimg->m_pData[midx+3]; 
+				out->m_pData[idx+3] = maskimg->m_pData[midx+3]; //a = a
 			}
 			else
 			{
-				out->m_pData[idx+0] = 0; 
-				out->m_pData[idx+1] = 0; 
-				out->m_pData[idx+2] = 0; 
-				out->m_pData[idx+3] = 0; 
+				out->m_pData[idx+0] = 0; //r
+				out->m_pData[idx+1] = 0; //g
+				out->m_pData[idx+2] = 0; //b
+				out->m_pData[idx+3] = 0; //a
 			}
 		}
 	}
-
+	
 	return out;
 }
 
