@@ -97,7 +97,7 @@
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Lib>
-      <AdditionalDependencies>libcurl_imp.lib</AdditionalDependencies>
+      <AdditionalDependencies>libcurl_imp.lib;wininet.lib</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(ProjectDir)..\..\cocos2dx\platform\third_party\win32\libraries</AdditionalLibraryDirectories>
