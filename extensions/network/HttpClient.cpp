@@ -85,6 +85,71 @@ static size_t writeHeaderData(void *ptr, size_t size, size_t nmemb, void *stream
 }
 
 
+#ifdef WIN32
+#include <Wininet.h>
+
+#include <Sensapi.h>
+
+
+int CCHttpClient::hasNet()
+{
+	
+
+DWORD   flags;//上网方式
+
+BOOL   m_bOnline=TRUE;//是否在线  
+
+m_bOnline=InternetGetConnectedState(&flags,0);  
+
+if(m_bOnline)//在线  
+
+{  
+
+   if ((flags & INTERNET_CONNECTION_MODEM) ==INTERNET_CONNECTION_MODEM)
+
+   {
+
+		return 1;
+
+   }
+
+   if ((flags & INTERNET_CONNECTION_LAN) ==INTERNET_CONNECTION_LAN)
+
+   {
+
+    return 1;
+
+   }
+
+   if ((flags & INTERNET_CONNECTION_PROXY) ==INTERNET_CONNECTION_PROXY)
+
+   {
+
+    return 1;
+
+   }
+
+   if ((flags & INTERNET_CONNECTION_MODEM_BUSY) ==INTERNET_CONNECTION_MODEM_BUSY)
+
+   {
+
+    return 1;
+
+   }
+
+}
+
+else
+{
+
+   return 0;
+}
+
+
+}
+
+#endif
+
 static int processGetTask(CCHttpRequest *request, write_callback callback, void *stream, int32_t *errorCode, write_callback headerCallback, void *headerStream);
 static int processPostTask(CCHttpRequest *request, write_callback callback, void *stream, int32_t *errorCode, write_callback headerCallback, void *headerStream);
 static int processPutTask(CCHttpRequest *request, write_callback callback, void *stream, int32_t *errorCode, write_callback headerCallback, void *headerStream);

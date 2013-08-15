@@ -51,6 +51,8 @@ public:
     
     /** Relase the shared instance **/
     static void destroyInstance();
+
+	static int hasNet();
         
     /**
      * Add a get request to task queue

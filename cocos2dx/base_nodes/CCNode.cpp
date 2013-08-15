@@ -408,6 +408,11 @@ void CCNode::setContentSize(const CCSize & size)
     }
 }
 
+void CCNode::run()
+{
+	m_bRunning = true;
+}
+
 // isRunning getter
 bool CCNode::isRunning()
 {

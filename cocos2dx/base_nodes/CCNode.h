@@ -854,6 +854,7 @@ public:
      */
     virtual bool isRunning();
 
+	void run();
     
     /// @{
     /// @name Script Bindings for lua

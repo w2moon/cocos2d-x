@@ -87,7 +87,7 @@ bool CCImage::initWithBase64(const char * pStrData,
 
 void CCImage::resize(int nWidth,int nHeight)
 {
-	if(mWidth == m_nWidth && nHeight == m_nHeight){
+	if(nWidth == m_nWidth && nHeight == m_nHeight){
 		return;
 	}
 	int bytes = m_bHasAlpha ? 4 : 3;
