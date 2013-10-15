@@ -79,6 +79,7 @@ THE SOFTWARE.
 #include "effects/CCGrabber.h"
 #include "effects/CCGrid.h"
 
+
 // include
 #include "CCEventType.h"
 #include "CCProtocols.h"
@@ -105,7 +106,7 @@ THE SOFTWARE.
 #include "layers_scenes_transitions_nodes/CCTransition.h"
 #include "layers_scenes_transitions_nodes/CCTransitionPageTurn.h"
 #include "layers_scenes_transitions_nodes/CCTransitionProgress.h"
-
+#include "effects/WindLayer.h"
 // menu_nodes
 #include "menu_nodes/CCMenu.h"
 #include "menu_nodes/CCMenuItem.h"

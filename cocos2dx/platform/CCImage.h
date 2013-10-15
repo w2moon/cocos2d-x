@@ -210,6 +210,7 @@ public:
 
 	void resize(int nWidth,int nHeight);
 
+	CCArray* cut(const char* cascadeFile,const char* modelPath);
 	CCArray* parse(const char* cascadeFile,double scale);
 
 	CCImage* createSubImage(CCRect r);

@@ -37,7 +37,7 @@ THE SOFTWARE.
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/photo/photo.hpp"
 #include "cocoa/CCArray.h"
-
+#include "asmmodel.h"
 
 NS_CC_BEGIN
 
@@ -121,6 +121,50 @@ void CCImage::resize(int nWidth,int nHeight)
     memcpy(m_pData,pData,dst->imageSize);
 	cvReleaseImageHeader(&src);
 	cvReleaseImageHeader(&dst);
+}
+
+CCArray* CCImage::cut(const char* cascadeFile,const char* modelPath)
+{
+	int verboseL = 0;
+	cv::CascadeClassifier objCascadeClassfifier; 
+	std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(cascadeFile);
+	if( !objCascadeClassfifier.load( fullPath ) )
+	{
+		return NULL;
+	}
+	StatModel::ASMModel asmModel;
+	asmModel.loadFromFile(CCFileUtils::sharedFileUtils()->fullPathForFilename(modelPath));
+	  // Load image.
+    int bytes = m_bHasAlpha ? 4 : 3;
+	IplImage* src = cvCreateImageHeader( cvSize(m_nWidth,m_nHeight), IPL_DEPTH_8U, bytes);
+	cvSetData(src,m_pData,m_nWidth*bytes);
+	cv::Mat img = cv::cvarrToMat(src);
+    if (img.empty()) {
+        return NULL;
+    }
+	CCArray* arr = CCArray::create();
+
+    // Face detection.
+    std::vector< cv::Rect > faces;
+    objCascadeClassfifier.detectMultiScale(
+        img, faces,
+        1.2, 2, CV_HAAR_SCALE_IMAGE, cv::Size(60, 60) );
+
+    // Fit to ASM!
+    std::vector < StatModel::ASMFitResult > fitResult = asmModel.fitAll(img, faces, verboseL);
+
+	std::vector < StatModel::ASMFitResult >::iterator iterb = fitResult.begin();
+	std::vector < StatModel::ASMFitResult >::iterator itere = fitResult.end();
+	for(;iterb != itere;iterb++){
+		//vector< Point_<int> > ptl;
+	}
+    
+
+	//std::vector < Point_<int> >
+	//fitResult.t
+	
+	return arr;
+
 }
 CCArray* CCImage::parse(const char* cascadeFile,double scale)
 {

@@ -100,6 +100,9 @@
     <Filter Include="support\user_default">
       <UniqueIdentifier>{c45b97e8-fa1f-4e58-8ec5-d46371c2dd26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="platform\asmlib">
+      <UniqueIdentifier>{f6326397-028a-43ea-ab53-095a68372869}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\base_nodes\CCAtlasNode.cpp">
@@ -467,6 +470,33 @@
     </ClCompile>
     <ClCompile Include="..\platform\CCImageProc.cpp">
       <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\asmlib\afreader.cpp">
+      <Filter>platform\asmlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\asmlib\asmmodel.cpp">
+      <Filter>platform\asmlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\asmlib\modelfile.cpp">
+      <Filter>platform\asmlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\asmlib\modelimage.cpp">
+      <Filter>platform\asmlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\asmlib\shapeinfo.cpp">
+      <Filter>platform\asmlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\asmlib\shapemodel.cpp">
+      <Filter>platform\asmlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\asmlib\shapevec.cpp">
+      <Filter>platform\asmlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\asmlib\similaritytrans.cpp">
+      <Filter>platform\asmlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\effects\WindLayer.cpp">
+      <Filter>effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -940,5 +970,32 @@
       <Filter>textures</Filter>
     </ClInclude>
     <ClInclude Include="..\ccFPSImages.h" />
+    <ClInclude Include="..\..\external\asmlib\afreader.h">
+      <Filter>platform\asmlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\external\asmlib\asmmodel.h">
+      <Filter>platform\asmlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\external\asmlib\modelfile.h">
+      <Filter>platform\asmlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\external\asmlib\modelimage.h">
+      <Filter>platform\asmlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\external\asmlib\shapeinfo.h">
+      <Filter>platform\asmlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\external\asmlib\shapemodel.h">
+      <Filter>platform\asmlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\external\asmlib\shapevec.h">
+      <Filter>platform\asmlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\external\asmlib\similaritytrans.h">
+      <Filter>platform\asmlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\effects\WindLayer.h">
+      <Filter>effects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
