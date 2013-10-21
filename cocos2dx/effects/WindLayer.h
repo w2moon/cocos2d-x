@@ -31,7 +31,7 @@ public:
 	int mpianb;
 	int mw;
 	int mwb;
-	int mdis;
+	float mdis;
 	int mnumd;
 	int mnumb;
 	int mr;
@@ -43,7 +43,7 @@ public:
 	CCSize screenSize;
 	CCWindLayer();
 	virtual ~CCWindLayer();
-	void initWithWindCount(int count=3,int chu=15,int pian=30,int pianb=10,int w=5,int wb=2,int dis=0.01,int numd=60,int numb=30,int r=64,int g=32,int b=32,int a=64);
+	void initWithWindCount(int count=3,int chu=15,int pian=30,int pianb=10,int w=5,int wb=2,float dis=0.01,int numd=60,int numb=30,int r=64,int g=32,int b=32,int a=64);
 	void instanceWindSetting(int num);
 	void constructWind(int num);
 	void tick(float dt);

@@ -76,7 +76,7 @@ void CCWindLayer::instanceWindSetting(int num)
 }
 
 
-void CCWindLayer::initWithWindCount(int count,int chu,int pian,int pianb,int w,int wb,int dis,int numd,int numb,int r,int g,int b,int a)
+void CCWindLayer::initWithWindCount(int count,int chu,int pian,int pianb,int w,int wb,float dis,int numd,int numb,int r,int g,int b,int a)
 {
 	m_windCount = count;
 	mchu=chu;
