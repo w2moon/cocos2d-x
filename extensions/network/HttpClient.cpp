@@ -148,6 +148,11 @@ else
 
 }
 
+#else
+int CCHttpClient::hasNet()
+{
+    return 1;
+}
 #endif
 
 static int processGetTask(CCHttpRequest *request, write_callback callback, void *stream, int32_t *errorCode, write_callback headerCallback, void *headerStream);

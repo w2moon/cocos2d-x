@@ -312,6 +312,24 @@
 		4EF8999A16E207E70040A527 /* CCTMXXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8998E16E207E70040A527 /* CCTMXXMLParser.cpp */; };
 		4EF8999B16E207E70040A527 /* CCTMXXMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF8998F16E207E70040A527 /* CCTMXXMLParser.h */; };
 		5871FFAF1768452A0056621B /* CCImageProc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5871FFAE1768452A0056621B /* CCImageProc.cpp */; };
+		5875E6401816BB81000C2E29 /* WindLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5875E63F1816BB81000C2E29 /* WindLayer.cpp */; };
+		5875E6421816BB89000C2E29 /* WindLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5875E6411816BB89000C2E29 /* WindLayer.h */; };
+		5875E6541816BCAE000C2E29 /* afreader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5875E6441816BCAE000C2E29 /* afreader.cpp */; };
+		5875E6551816BCAE000C2E29 /* afreader.h in Headers */ = {isa = PBXBuildFile; fileRef = 5875E6451816BCAE000C2E29 /* afreader.h */; };
+		5875E6561816BCAE000C2E29 /* asmmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5875E6461816BCAE000C2E29 /* asmmodel.cpp */; };
+		5875E6571816BCAE000C2E29 /* asmmodel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5875E6471816BCAE000C2E29 /* asmmodel.h */; };
+		5875E6581816BCAE000C2E29 /* modelfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5875E6481816BCAE000C2E29 /* modelfile.cpp */; };
+		5875E6591816BCAE000C2E29 /* modelfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 5875E6491816BCAE000C2E29 /* modelfile.h */; };
+		5875E65A1816BCAE000C2E29 /* modelimage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5875E64A1816BCAE000C2E29 /* modelimage.cpp */; };
+		5875E65B1816BCAE000C2E29 /* modelimage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5875E64B1816BCAE000C2E29 /* modelimage.h */; };
+		5875E65C1816BCAE000C2E29 /* shapeinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5875E64C1816BCAE000C2E29 /* shapeinfo.cpp */; };
+		5875E65D1816BCAE000C2E29 /* shapeinfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5875E64D1816BCAE000C2E29 /* shapeinfo.h */; };
+		5875E65E1816BCAE000C2E29 /* shapemodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5875E64E1816BCAE000C2E29 /* shapemodel.cpp */; };
+		5875E65F1816BCAE000C2E29 /* shapemodel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5875E64F1816BCAE000C2E29 /* shapemodel.h */; };
+		5875E6601816BCAE000C2E29 /* shapevec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5875E6501816BCAE000C2E29 /* shapevec.cpp */; };
+		5875E6611816BCAE000C2E29 /* shapevec.h in Headers */ = {isa = PBXBuildFile; fileRef = 5875E6511816BCAE000C2E29 /* shapevec.h */; };
+		5875E6621816BCAE000C2E29 /* similaritytrans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5875E6521816BCAE000C2E29 /* similaritytrans.cpp */; };
+		5875E6631816BCAE000C2E29 /* similaritytrans.h in Headers */ = {isa = PBXBuildFile; fileRef = 5875E6531816BCAE000C2E29 /* similaritytrans.h */; };
 		D43F7F8A15C7D8BA00D713FC /* CCTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D43F7F8915C7D8BA00D713FC /* CCTouch.cpp */; };
 /* End PBXBuildFile section */
 
@@ -624,6 +642,24 @@
 		4EF8998E16E207E70040A527 /* CCTMXXMLParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTMXXMLParser.cpp; sourceTree = "<group>"; };
 		4EF8998F16E207E70040A527 /* CCTMXXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTMXXMLParser.h; sourceTree = "<group>"; };
 		5871FFAE1768452A0056621B /* CCImageProc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCImageProc.cpp; sourceTree = "<group>"; };
+		5875E63F1816BB81000C2E29 /* WindLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WindLayer.cpp; sourceTree = "<group>"; };
+		5875E6411816BB89000C2E29 /* WindLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindLayer.h; sourceTree = "<group>"; };
+		5875E6441816BCAE000C2E29 /* afreader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = afreader.cpp; path = ../../external/asmlib/afreader.cpp; sourceTree = "<group>"; };
+		5875E6451816BCAE000C2E29 /* afreader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = afreader.h; path = ../../external/asmlib/afreader.h; sourceTree = "<group>"; };
+		5875E6461816BCAE000C2E29 /* asmmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = asmmodel.cpp; path = ../../external/asmlib/asmmodel.cpp; sourceTree = "<group>"; };
+		5875E6471816BCAE000C2E29 /* asmmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = asmmodel.h; path = ../../external/asmlib/asmmodel.h; sourceTree = "<group>"; };
+		5875E6481816BCAE000C2E29 /* modelfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelfile.cpp; path = ../../external/asmlib/modelfile.cpp; sourceTree = "<group>"; };
+		5875E6491816BCAE000C2E29 /* modelfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelfile.h; path = ../../external/asmlib/modelfile.h; sourceTree = "<group>"; };
+		5875E64A1816BCAE000C2E29 /* modelimage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelimage.cpp; path = ../../external/asmlib/modelimage.cpp; sourceTree = "<group>"; };
+		5875E64B1816BCAE000C2E29 /* modelimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelimage.h; path = ../../external/asmlib/modelimage.h; sourceTree = "<group>"; };
+		5875E64C1816BCAE000C2E29 /* shapeinfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shapeinfo.cpp; path = ../../external/asmlib/shapeinfo.cpp; sourceTree = "<group>"; };
+		5875E64D1816BCAE000C2E29 /* shapeinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shapeinfo.h; path = ../../external/asmlib/shapeinfo.h; sourceTree = "<group>"; };
+		5875E64E1816BCAE000C2E29 /* shapemodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shapemodel.cpp; path = ../../external/asmlib/shapemodel.cpp; sourceTree = "<group>"; };
+		5875E64F1816BCAE000C2E29 /* shapemodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shapemodel.h; path = ../../external/asmlib/shapemodel.h; sourceTree = "<group>"; };
+		5875E6501816BCAE000C2E29 /* shapevec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shapevec.cpp; path = ../../external/asmlib/shapevec.cpp; sourceTree = "<group>"; };
+		5875E6511816BCAE000C2E29 /* shapevec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shapevec.h; path = ../../external/asmlib/shapevec.h; sourceTree = "<group>"; };
+		5875E6521816BCAE000C2E29 /* similaritytrans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = similaritytrans.cpp; path = ../../external/asmlib/similaritytrans.cpp; sourceTree = "<group>"; };
+		5875E6531816BCAE000C2E29 /* similaritytrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = similaritytrans.h; path = ../../external/asmlib/similaritytrans.h; sourceTree = "<group>"; };
 		D43F7F8915C7D8BA00D713FC /* CCTouch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTouch.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -788,6 +824,8 @@
 		1551A396158F2ADE00E66CFE /* effects */ = {
 			isa = PBXGroup;
 			children = (
+				5875E6411816BB89000C2E29 /* WindLayer.h */,
+				5875E63F1816BB81000C2E29 /* WindLayer.cpp */,
 				1551A397158F2ADE00E66CFE /* CCGrabber.cpp */,
 				1551A398158F2ADE00E66CFE /* CCGrabber.h */,
 				1551A399158F2ADE00E66CFE /* CCGrid.cpp */,
@@ -971,6 +1009,7 @@
 		1551A43F158F2ADE00E66CFE /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				5875E6431816BC38000C2E29 /* asmlib */,
 				5871FFAE1768452A0056621B /* CCImageProc.cpp */,
 				1551A46C158F2ADE00E66CFE /* CCAccelerometerDelegate.h */,
 				1551A46D158F2ADE00E66CFE /* CCApplicationProtocol.h */,
@@ -1276,6 +1315,29 @@
 			path = user_default;
 			sourceTree = "<group>";
 		};
+		5875E6431816BC38000C2E29 /* asmlib */ = {
+			isa = PBXGroup;
+			children = (
+				5875E6441816BCAE000C2E29 /* afreader.cpp */,
+				5875E6451816BCAE000C2E29 /* afreader.h */,
+				5875E6461816BCAE000C2E29 /* asmmodel.cpp */,
+				5875E6471816BCAE000C2E29 /* asmmodel.h */,
+				5875E6481816BCAE000C2E29 /* modelfile.cpp */,
+				5875E6491816BCAE000C2E29 /* modelfile.h */,
+				5875E64A1816BCAE000C2E29 /* modelimage.cpp */,
+				5875E64B1816BCAE000C2E29 /* modelimage.h */,
+				5875E64C1816BCAE000C2E29 /* shapeinfo.cpp */,
+				5875E64D1816BCAE000C2E29 /* shapeinfo.h */,
+				5875E64E1816BCAE000C2E29 /* shapemodel.cpp */,
+				5875E64F1816BCAE000C2E29 /* shapemodel.h */,
+				5875E6501816BCAE000C2E29 /* shapevec.cpp */,
+				5875E6511816BCAE000C2E29 /* shapevec.h */,
+				5875E6521816BCAE000C2E29 /* similaritytrans.cpp */,
+				5875E6531816BCAE000C2E29 /* similaritytrans.h */,
+			);
+			name = asmlib;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1454,6 +1516,15 @@
 				1A5B48EC16F084CC008568FC /* CCFloat.h in Headers */,
 				1A5429001720F0650074EC5C /* CCDataVisitor.h in Headers */,
 				4698CFAA174CBB700066A57B /* CCTextureETC.h in Headers */,
+				5875E6421816BB89000C2E29 /* WindLayer.h in Headers */,
+				5875E6551816BCAE000C2E29 /* afreader.h in Headers */,
+				5875E6571816BCAE000C2E29 /* asmmodel.h in Headers */,
+				5875E6591816BCAE000C2E29 /* modelfile.h in Headers */,
+				5875E65B1816BCAE000C2E29 /* modelimage.h in Headers */,
+				5875E65D1816BCAE000C2E29 /* shapeinfo.h in Headers */,
+				5875E65F1816BCAE000C2E29 /* shapemodel.h in Headers */,
+				5875E6611816BCAE000C2E29 /* shapevec.h in Headers */,
+				5875E6631816BCAE000C2E29 /* similaritytrans.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1641,6 +1712,15 @@
 				1A5428FF1720F0650074EC5C /* CCDataVisitor.cpp in Sources */,
 				4698CFA9174CBB700066A57B /* CCTextureETC.cpp in Sources */,
 				5871FFAF1768452A0056621B /* CCImageProc.cpp in Sources */,
+				5875E6401816BB81000C2E29 /* WindLayer.cpp in Sources */,
+				5875E6541816BCAE000C2E29 /* afreader.cpp in Sources */,
+				5875E6561816BCAE000C2E29 /* asmmodel.cpp in Sources */,
+				5875E6581816BCAE000C2E29 /* modelfile.cpp in Sources */,
+				5875E65A1816BCAE000C2E29 /* modelimage.cpp in Sources */,
+				5875E65C1816BCAE000C2E29 /* shapeinfo.cpp in Sources */,
+				5875E65E1816BCAE000C2E29 /* shapemodel.cpp in Sources */,
+				5875E6601816BCAE000C2E29 /* shapevec.cpp in Sources */,
+				5875E6621816BCAE000C2E29 /* similaritytrans.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1720,6 +1800,7 @@
 					"\"$(SRCROOT)/../kazmath/include\"",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(SRCROOT)/../../external/opencv/include\"",
+					"\"$(SRCROOT)/../../external/opencv/include/opencv\"",
 				);
 				INSTALL_PATH = "/usr/local//Users/w2moon/Documents/projects/w2moon_fork/cocos2d-x/mycocos2d/lib";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
@@ -1753,6 +1834,7 @@
 					"\"$(SRCROOT)/../kazmath/include\"",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(SRCROOT)/../../external/opencv/include\"",
+					"\"$(SRCROOT)/../../external/opencv/include/opencv\"",
 				);
 				INSTALL_PATH = "/usr/local//Users/w2moon/Documents/projects/w2moon_fork/cocos2d-x/mycocos2d/lib";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;

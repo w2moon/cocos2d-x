@@ -86,6 +86,7 @@ cc.BuilderReader.load = function(file, owner, parentSize)
             var callbackName = documentCallbackNames[j];
             var callbackNode = documentCallbackNodes[j];
 
+            
             callbackNode.setCallback(controller[callbackName], controller);
         }
 

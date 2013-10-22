@@ -9,7 +9,8 @@
 #include "effects/WindLayer.h"
 
 NS_CC_BEGIN
-
+#include <OpenGLES/ES1/gl.h>
+#include <OpenGLES/ES1/glext.h>
 
 //#define screenSize CCDirector::sharedDirector()->getWinSize()
 
